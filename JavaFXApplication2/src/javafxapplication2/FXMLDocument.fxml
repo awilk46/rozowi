@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="358.0" prefWidth="655.0" style="-fx-background-color: #794261;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication2.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="signPane" prefHeight="358.0" prefWidth="655.0" style="-fx-background-color: #794261;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication2.FXMLDocumentController">
    <children>
       <AnchorPane layoutX="411.0" layoutY="26.0" prefHeight="307.0" prefWidth="220.0" style="-fx-background-color: #a17a90;">
          <children>
@@ -23,7 +23,7 @@
                   <Insets />
                </opaqueInsets></TextField>
             <PasswordField fx:id="passwField" layoutX="17.0" layoutY="162.0" prefHeight="27.0" prefWidth="187.0" promptText="password" style="-fx-background-color: #ae8da0; -fx-border-color: #794261;" />
-            <Button fx:id="logInButton" layoutX="17.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="187.0" style="-fx-background-color: #d6c6cf;" text="Log in" textFill="#514a53" />
+            <Button fx:id="logInButton" layoutX="17.0" layoutY="214.0" mnemonicParsing="false" onAction="#logInAction" prefHeight="25.0" prefWidth="187.0" style="-fx-background-color: #d6c6cf;" text="Log in" textFill="#514a53" />
             <Label alignment="CENTER" contentDisplay="TOP" layoutX="71.0" layoutY="41.0" prefHeight="37.0" prefWidth="79.0" text="SIgn In" textFill="#514a53">
                <font>
                   <Font size="14.0" />
@@ -52,7 +52,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="registrat" layoutX="77.0" layoutY="248.0" text="You are not a TASK user? Click here for registration." />
+      <Label layoutX="77.0" layoutY="248.0" text="You are not a TASK user? Click here for registration." />
       <Button fx:id="registrationButton" layoutX="163.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #d6c6cf;" text="Sign Up" textFill="#514a53" />
    </children>
 </AnchorPane>
