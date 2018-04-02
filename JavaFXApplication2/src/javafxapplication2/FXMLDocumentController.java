@@ -5,23 +5,26 @@
  */
 package javafxapplication2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author adria
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     private Label label;
     @FXML
     private TextField usernameField;
@@ -32,19 +35,27 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Hyperlink forgotPassLink;
     @FXML
-    private Label registrat;
-    @FXML
     private Button registrationButton;
-    
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    @FXML
+    private AnchorPane signPane;
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        System.out.println(" ");
-    }    
-    
+
+    }
+
+    @FXML
+    private void logInAction(ActionEvent event) throws IOException {
+        
+        AnchorPane rootPane = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+        
+        signPane.getChildren().setAll(rootPane);
+
+    }
+
+
+
 }
