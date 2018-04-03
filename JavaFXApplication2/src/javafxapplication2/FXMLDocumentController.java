@@ -51,6 +51,9 @@ public class FXMLDocumentController implements Initializable {
     private void logInAction(ActionEvent event) throws IOException {
         
         AnchorPane rootPane = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+//        FXMLLoader floader = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+//        floader.setRoot(this);
+//        floader.setController(this);
         
         signPane.getChildren().setAll(rootPane);
 
