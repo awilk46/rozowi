@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="761.0" style="-fx-background-color: #794261;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="javafxapplication2.FXMLDocument3Controller">
+<AnchorPane id="AnchorPane" fx:id="anothRootPane" prefHeight="416.0" prefWidth="761.0" style="-fx-background-color: #794261;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication2.FXMLDocument3Controller">
    <children>
       <AnchorPane prefHeight="62.0" prefWidth="761.0" style="-fx-background-color: #a17a90;">
          <children>
@@ -27,7 +26,7 @@
                   <Image url="@images/options.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="108.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="undoImg" fitHeight="51.0" fitWidth="108.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#undoOnClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/undo.png" />
                </image>

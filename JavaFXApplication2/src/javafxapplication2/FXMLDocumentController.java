@@ -41,7 +41,6 @@ public class FXMLDocumentController implements Initializable {
 
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -49,16 +48,30 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void logInAction(ActionEvent event) throws IOException {
-        
-        AnchorPane rootPane = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+       Osoba admin = new Osoba("admin", "admin");
+       Osoba user = new Osoba("user", "user");
+
+
+//        if (usernameField.equals(admin.getUsername()) && passwField.equals(admin.getPassword())) {
+if (usernameField.getText().equals(admin.getUsername())&& passwField.getText().equals(admin.getPassword())) {
+
+            AnchorPane rootPane = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
 //        FXMLLoader floader = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
 //        floader.setRoot(this);
 //        floader.setController(this);
-        
-        signPane.getChildren().setAll(rootPane);
+
+            signPane.getChildren().setAll(rootPane);
+//        }else if (usernameField.equals(user.getUsername()) && passwField.equals(user.getPassword())) {
+}else if (usernameField.getText().equals(user.getUsername())&& passwField.getText().equals(user.getPassword())) {
+
+            AnchorPane rootPane = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+//        FXMLLoader floader = FXMLLoader.load(getClass().getResource("FXMLDocument2.fxml"));
+//        floader.setRoot(this);
+//        floader.setController(this);
+
+            signPane.getChildren().setAll(rootPane);
+        }
 
     }
-
-
 
 }
