@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Tworzenia_GrupController">
+    <stylesheets>
+        <URL value="@Design.css" />
+    </stylesheets>
+   <children>
+      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="35.0" layoutY="58.0" onAction="#ActionComboBoxWybierzProjekt" prefWidth="150.0" styleClass="comboboxProjekt" />
+      <Label layoutX="35.0" layoutY="28.0" text="Wybierz Projekt:" />
+      <TextArea fx:id="textareaOpisGrupy" layoutX="35.0" layoutY="206.0" prefHeight="200.0" prefWidth="200.0" styleClass="textfieldLogowania" />
+      <TextField fx:id="textfieldNadajGrupieNazwe" layoutX="35.0" layoutY="137.0" styleClass="textfieldLogowania" />
+      <Label layoutX="35.0" layoutY="99.0" text="Nadaj grupie nazwę:" />
+      <Label layoutX="35.0" layoutY="174.0" text="Opis grupy:" />
+      <ComboBox fx:id="comboboxWybierzLidera" layoutX="211.0" layoutY="58.0" onAction="#ActionCombBboxWybierzLidera" prefWidth="150.0" styleClass="comboboxProjekt" />
+      <Label layoutX="228.0" layoutY="28.0" text="Wybierz Lidera Grupy:" />
+      <TableView fx:id="tabZnajdz" layoutX="421.0" layoutY="151.0" prefHeight="283.0" prefWidth="272.0" styleClass="tableview">
+        <columns>
+          <TableColumn prefWidth="58.0" text="Wybierz" />
+          <TableColumn prefWidth="98.0" text="Imie" />
+            <TableColumn prefWidth="118.0" text="Nazwisko" />
+        </columns>
+      </TableView>
+      <TextField fx:id="textfieldZnajdzImie" layoutX="486.0" layoutY="69.0" styleClass="textfieldLogowania" />
+      <Label layoutX="421.0" layoutY="28.0" text="Znajdź pracownika:" />
+      <Label layoutX="421.0" layoutY="73.0" text="Imie:" />
+      <Label layoutX="421.0" layoutY="104.0" text="Nazwisko:" />
+      <TextField fx:id="textfieldZnajdzNazwisko" layoutX="486.0" layoutY="100.0" styleClass="textfieldLogowania" />
+      <Button fx:id="buttonSzukajPracownika" layoutX="667.0" layoutY="83.0" mnemonicParsing="false" onAction="#ActionButtonSzukajPracownika" styleClass="buttonCzGrupy" text="Szukaj" />
+      <Button fx:id="buttonDodajDoGrupy" layoutX="507.0" layoutY="450.0" mnemonicParsing="false" onAction="#ActionButtonDodajDoGrupy" styleClass="buttonCzGrupy" text="Dodaj do grupy" />
+      <TableView fx:id="tabGrupa" layoutX="717.0" layoutY="151.0" prefHeight="283.0" prefWidth="272.0" styleClass="tableview">
+         <columns>
+            <TableColumn prefWidth="58.0" text="Wybierz" />
+            <TableColumn prefWidth="98.0" text="Imie" />
+            <TableColumn prefWidth="118.0" text="Nazwisko" />
+         </columns>
+      </TableView>
+      <Button fx:id="buttonUsunZGrupy" layoutX="795.0" layoutY="450.0" mnemonicParsing="false" onAction="#ActionButtonUsunZGrupy" styleClass="buttonCzGrupy" text="Usuń z grupy" />
+      <Button fx:id="buttonStworzGrupe" layoutX="279.0" layoutY="475.0" mnemonicParsing="false" onAction="#ActionButtonStworzGrupe" styleClass="buttonCzGrupy" text="Stwórz Grupę" />
+      <Button fx:id="buttonWroc" layoutX="19.0" layoutY="663.0" mnemonicParsing="false" onAction="#ActionWroc" styleClass="buttonCzGrupy" text="Wróć" />
+   </children>
+</AnchorPane>
