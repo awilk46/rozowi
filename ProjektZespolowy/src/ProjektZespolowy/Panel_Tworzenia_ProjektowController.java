@@ -105,7 +105,6 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
         WczytanieFirm();
         
         WczytanieWolnychKierownikow();
-    
     }    
     
     
@@ -119,6 +118,8 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 query = "SELECT NAZWA_FIRMY FROM FIRMY";
                 
                 ResultSet rs = stat.executeQuery(query);
+                
+                comboboxWybierzFirme.getItems().clear();
                 
                 while(rs.next()){
                     comboboxWybierzFirme.getItems().addAll(rs.getString("NAZWA_FIRMY"));    
@@ -146,6 +147,8 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 query = "SELECT DISTINCT ID_UZYTKOWNIKA, IMIE, NAZWISKO FROM UZYTKOWNICY, PROJEKTY WHERE UZYTKOWNICY.ID_STANOWISKA = 3 AND UZYTKOWNICY.ID_PROJEKTU is NULL";
                 
                 ResultSet rs = stat.executeQuery(query);
+                
+                comboboxWybierzKierownika.getItems().clear();
                 
                 while(rs.next()){
                     comboboxWybierzKierownika.getItems().addAll(rs.getString("IMIE") + " " + rs.getString("NAZWISKO"));    
@@ -257,7 +260,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 System.err.println(" nie można wykonac tego zapytania: 3" + e.getMessage());
             }
         }
-       
+        
         WczytanieFirm();
     }
 
@@ -273,7 +276,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
 
     
     String statusProjektu;
-      
+    int idProjektu;
+    
+    
     @FXML
     private void ActionButtonDodajProjekt(ActionEvent event) {
         
@@ -325,7 +330,42 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
 
             } catch (SQLException e) {
                 System.err.println(" nie można wykonac tego zapytania: 5" + e.getMessage());
-            }        
+            }
+
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT ID_PROJEKTU FROM PROJEKTY WHERE NAZWA_PROJEKTU ='" + nazwaProjektu +"'";
+                
+                ResultSet rs = stat.executeQuery(query);
+
+                idProjektu = rs.getInt("ID_PROJEKTU");                
+
+                query = "UPDATE UZYTKOWNICY SET ID_PROJEKTU = '" + idProjektu + "' WHERE ID_UZYTKOWNIKA = '" + idWybranegoKierownika + "'";
+            
+                stat.executeUpdate(query);
+                
+                stat.close();
+                connection.commit();
+                connection.close();
+                
+                JOptionPane.showMessageDialog(null, "Utworzono Projekt", "Tworzenie Projektu", JOptionPane.INFORMATION_MESSAGE);
+                
+                textfieldNazwaProjektu.clear();
+                textfieldKoszt.clear();
+                textareaOpisProjektu.clear();
+               datepickerDataEnd.getEditor().clear();
+                
+                WczytanieFirm();
+        
+                WczytanieWolnychKierownikow();
+                
+
+            } catch (SQLException e) {
+                System.err.println(" nie można wykonac tego zapytania: 5" + e.getMessage());
+            }
         
     }
 
@@ -343,6 +383,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
         nazwa = nazwaWybranegoKierownika.split(" ");
         
         nazwaWybranegoKierownikaImie = nazwa[0];
+        System.out.println(""+nazwaWybranegoKierownikaImie);
         nazwaWybranegoKierownikaNazwisko = nazwa[1];
         
             try {
