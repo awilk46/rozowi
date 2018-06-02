@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -41,12 +42,6 @@ import javax.swing.JOptionPane;
 
 public class Panel_Edycji_ZadanController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    
-        @FXML
-    private Button buttonAktualizujZadanie;
     
     @FXML
     private Button buttonWroc;
@@ -54,26 +49,37 @@ public class Panel_Edycji_ZadanController implements Initializable {
     @FXML
     private ComboBox comboboxWybierzProjekt;
     
-    @FXML
     private ComboBox comboboxWybierzGrupe;
     
-    @FXML
     private ComboBox comboboxWybierzSprint;
     
-    @FXML
     private ComboBox comboboxWybierzPriorytet;
     
-    @FXML
     private ComboBox comboboxWybierzCzGrupy;
     
-    @FXML
     private TextField textfieldNazwaZadania;
     
-    @FXML
     private TextArea textareaOpisZadania;
     
-    @FXML
     private TextArea textareaKomentarzZadania;
+    
+    @FXML
+    private TextField textfieldNazwaProjektu;
+    
+    @FXML
+    private TextArea textareaOpisProjektu;
+    
+    @FXML
+    private TextArea textareaKomentarzProjektu;
+    
+    @FXML
+    private Button buttonAktualizujProjekt;
+    
+    @FXML
+    private TextField textfieldKoszt;
+    
+    @FXML
+    private DatePicker datepickerDataEnd;
 
     
     @Override
@@ -200,7 +206,6 @@ public class Panel_Edycji_ZadanController implements Initializable {
     String wybranyPriorytet;
     
     
-    @FXML
     private void ActionComboBoxWybierzPriorytet(ActionEvent event) {
         
         wybranyPriorytet = (String) comboboxWybierzPriorytet.getSelectionModel().getSelectedItem();
@@ -216,7 +221,6 @@ public class Panel_Edycji_ZadanController implements Initializable {
     int idPrzypisanego;
     
     
-    @FXML
     private void ActionComboBoxWybierzCzGrupy(ActionEvent event) {
         
         nazwaCzGrupy = (String) comboboxWybierzCzGrupy.getSelectionModel().getSelectedItem();
@@ -255,7 +259,6 @@ public class Panel_Edycji_ZadanController implements Initializable {
     int idSprintu;
     
     
-    @FXML
     private void ActionComboBoxWybierzSprint(ActionEvent event) {
         
         nazwaSprintu = (String) comboboxWybierzSprint.getSelectionModel().getSelectedItem();
@@ -287,7 +290,6 @@ public class Panel_Edycji_ZadanController implements Initializable {
     String nazwaGrupy;
     
     
-    @FXML
     private void ActionComboBoxWybierzGrupe(ActionEvent event) {
         
         nazwaGrupy = (String) comboboxWybierzGrupe.getSelectionModel().getSelectedItem();
@@ -360,7 +362,6 @@ public class Panel_Edycji_ZadanController implements Initializable {
    int idZadania;
     
     
-    @FXML
     private void ActionButtonAktualizujZadanie(ActionEvent event) {
         
         nazwaZadania = textfieldNazwaZadania.getText();
@@ -526,8 +527,4 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
-
-
-    
-    
 }

@@ -199,8 +199,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
     
     
     @FXML
-    private void ActionComboBoxWybierzFirme(ActionEvent event) {        
-        
+    private void ActionComboBoxWybierzFirme(ActionEvent event) {
     }
 
     
