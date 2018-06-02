@@ -63,10 +63,18 @@ public class Panel_LogowaniaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-         
+        
+    
     int idStanowiska=0;
     Stage stage = new Stage();
     Parent root = null;
+    public static int idZalogowanego;
+    
+    public static int getZalogowany() {
+        return idZalogowanego;
+    }
+    
+    
     
     @FXML
     private void ActionButtonZaloguj(ActionEvent event) throws IOException {
@@ -80,16 +88,18 @@ public class Panel_LogowaniaController implements Initializable {
         
             try {
                 Connection connection = connect();
-
+                stat = connection.createStatement();
                 String query = "SELECT * FROM UZYTKOWNICY WHERE LOGIN=" + "'" + login + "'" + " AND HASLO=" + "'" + haslo + "'";
                 System.out.println(query);
 
-                stat = connection.createStatement();
+                
                 ResultSet rs = stat.executeQuery(query);
 
                 if (rs.next()) {
                     
-                    idStanowiska=rs.getInt("ID_STANOWISKA");
+                    idStanowiska = rs.getInt("ID_STANOWISKA");
+                    
+                    idZalogowanego = rs.getInt("ID_UZYTKOWNIKA");
                     
                     switch(idStanowiska){
                         case 1:

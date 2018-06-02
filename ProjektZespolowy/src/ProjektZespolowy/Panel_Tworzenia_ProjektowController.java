@@ -99,6 +99,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
     @FXML
     private Button buttonWroc;
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -302,7 +303,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
 
                 idFirmyZlecajacej = rs.getInt("ID_FIRMY");
                 
-                System.out.println("Id firmyzlecajacej: " + idFirmyZlecajacej);
+                System.out.println("Id firmy zlecajacej: " + idFirmyZlecajacej);
                 
                 stat.executeUpdate(query);
                 
@@ -369,12 +370,14 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
         
     }
 
+    
         int idWybranegoKierownika;
         String nazwaWybranegoKierownika;
         String[] nazwa;
         String nazwaWybranegoKierownikaImie;
         String nazwaWybranegoKierownikaNazwisko;
     
+        
     @FXML
     private void ActionComboBoxWybierzKierownika(ActionEvent event) {
      
