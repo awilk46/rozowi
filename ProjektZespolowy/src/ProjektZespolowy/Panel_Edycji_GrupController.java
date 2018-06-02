@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -125,6 +126,8 @@ public class Panel_Edycji_GrupController implements Initializable {
 
     @FXML
     private void ActionAktualizujGrupe(ActionEvent event) {
+        
+        JOptionPane.showMessageDialog(null, "Zaaktualizowano Grupę", "Aktualizacja Grupy", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @FXML
