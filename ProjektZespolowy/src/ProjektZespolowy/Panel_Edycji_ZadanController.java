@@ -30,9 +30,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -388,7 +388,14 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.commit();
                 connection.close();
                 
-                JOptionPane.showMessageDialog(null, "Zaktualizowano Zadanie", "Aktualizacja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Zaaktualizowano zadanie!!");
+
+                alert.showAndWait();                
+                
+                //JOptionPane.showMessageDialog(null, "Zaktualizowano Zadanie", "Aktualizacja Zadania", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
                 System.err.println(" nie można wykonac tego zapytania: AKTUALIZUJ ZADANIE" + e.getMessage());
@@ -445,7 +452,7 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 
                 comboboxWybierzCzGrupy.getItems().addAll(rs.getString("IMIE") + " " + rs.getString("NAZWISKO"));
 
-                stat.executeUpdate(query);
+                //stat.executeUpdate(query);
                 rs.close();
                 stat.close();
                 connection.commit();

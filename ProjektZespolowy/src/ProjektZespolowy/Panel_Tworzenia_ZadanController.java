@@ -25,10 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 import static ProjektZespolowy.Panel_LogowaniaController.getZalogowany;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.control.Alert;
 
 /**
  * FXML Controller class
@@ -408,7 +408,14 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 
                 stat.executeUpdate(query);
                 
-                JOptionPane.showMessageDialog(null, "Utworzono Zadanie", "Tworzenie Zadania", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Utworzono zadanie!");
+
+                alert.showAndWait();                
+                
+                //JOptionPane.showMessageDialog(null, "Utworzono Zadanie", "Tworzenie Zadania", JOptionPane.INFORMATION_MESSAGE);
                 
                 WczytajPriorytet();
                 

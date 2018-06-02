@@ -48,13 +48,14 @@ import java.sql.Statement;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.logging.Level;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressBar;
 
 
@@ -1149,7 +1150,14 @@ private ProgressBar barDataSprint;
                 connection.commit();
                 connection.close();
 
-            JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Zapisany zmiany w zadaniu!");
+
+                alert.showAndWait();
+                
+            //JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
             
             WczytajZadania();
             

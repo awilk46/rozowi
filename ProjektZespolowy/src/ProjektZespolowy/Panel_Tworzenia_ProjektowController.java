@@ -30,8 +30,8 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
-import javax.swing.JOptionPane;
 import static javax.xml.bind.DatatypeConverter.parseString;
 
 
@@ -254,7 +254,14 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 textfieldLoginPrzedstawiciela.clear();
                 passwordfieldHasloPrzedstawiciela.clear();
                 
-                JOptionPane.showMessageDialog(null, "Dodałeś firmę do bazy danych", "Stworzenie Firmy", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Dodałeś firmę do bazy danych");
+
+                alert.showAndWait();                
+                
+                //JOptionPane.showMessageDialog(null, "Dodałeś firmę do bazy danych", "Stworzenie Firmy", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
                 System.err.println(" nie można wykonac tego zapytania: 3" + e.getMessage());
@@ -351,7 +358,14 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.commit();
                 connection.close();
                 
-                JOptionPane.showMessageDialog(null, "Utworzono Projekt", "Tworzenie Projektu", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Utworzono projekt!");
+
+                alert.showAndWait();                
+                
+                //JOptionPane.showMessageDialog(null, "Utworzono Projekt", "Tworzenie Projektu", JOptionPane.INFORMATION_MESSAGE);
                 
                 textfieldNazwaProjektu.clear();
                 textfieldKoszt.clear();

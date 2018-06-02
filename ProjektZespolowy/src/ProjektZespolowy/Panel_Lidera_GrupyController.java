@@ -43,9 +43,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -1208,7 +1208,15 @@ public void WczytajChatProjektu(int czyscProjektu) {
             stage.show();     
         }
         else {
-            JOptionPane.showMessageDialog(null, "Nie wybrano zadania", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+            
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Nie wybrano zadania!!");
+
+                alert.showAndWait();            
+            
+            //JOptionPane.showMessageDialog(null, "Nie wybrano zadania", "Informacja", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -1330,7 +1338,14 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.commit();
                 connection.close();
 
-            JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Zapisano zmiany w zadaniu!");
+
+                alert.showAndWait();                
+                
+            //JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
             
             WczytajZadania();
             

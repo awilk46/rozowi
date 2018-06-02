@@ -28,8 +28,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 
 /**
@@ -67,11 +67,13 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     @FXML
     private Button buttonWroc;    
     
-    @FXML
-    private Button buttonStworzGrupe;
     
     @FXML
     private ListView listviewDodani;
+    @FXML
+    private Button buttonAktualizujGrupe;
+    @FXML
+    private ComboBox<?> comboboxWybierzGrupe;
     
     
     @Override
@@ -257,8 +259,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
 
             } catch (SQLException e) {
                 System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
-            }        
-        
+            }   
     }
 
     
@@ -267,6 +268,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     Statement stat = null;
     ObservableList<String> wybraniPracownicy = FXCollections.observableArrayList();
     int idGrupy;
+    
     
     @FXML
     private void ActionButtonDodajDoGrupy(ActionEvent event) {
@@ -278,9 +280,6 @@ public class Panel_Tworzenia_GrupController implements Initializable {
         
         // WczytajWolnychPracownikow();
     }
-
-    
-    String pomoc;
     
     
     @FXML
@@ -301,7 +300,6 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     int idWybranego;
     
     
-    @FXML
     private void ActionButtonStworzGrupe(ActionEvent event) {
         
         nazwaGrupy = textfieldNadajGrupieNazwe.getText();
@@ -370,7 +368,14 @@ public class Panel_Tworzenia_GrupController implements Initializable {
             System.err.println(" nie można wykonac tego zapytania: 5 " + e.getMessage());    
         }        
         
-        JOptionPane.showMessageDialog(null, "Utworzono Grupę", "Tworzenie Grupy", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Potwierdzenie");
+                alert.setContentText("Utworzono Grupę!");
+
+                alert.showAndWait();        
+        
+        //JOptionPane.showMessageDialog(null, "Utworzono Grupę", "Tworzenie Grupy", JOptionPane.INFORMATION_MESSAGE);
     }
 
     
