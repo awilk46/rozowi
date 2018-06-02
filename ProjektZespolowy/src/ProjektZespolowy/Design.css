@@ -78,7 +78,7 @@
 }
 
 .tableview {
-    
+    -fx-text-fill: black;
 }
 
 .textarea {

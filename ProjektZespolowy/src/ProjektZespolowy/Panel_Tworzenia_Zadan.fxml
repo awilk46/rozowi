@@ -26,8 +26,6 @@
       <TextArea fx:id="textareaKomentarzZadania" layoutX="41.0" layoutY="525.0" prefHeight="181.0" prefWidth="563.0" styleClass="textarea" />
       <Label layoutX="48.0" layoutY="96.0" text="Wybierz sprint:" />
       <Label layoutX="44.0" layoutY="60.0" text="Wybierz grupę:" />
-      <Label layoutX="44.0" layoutY="24.0" text="Wybierz projekt:" />
-      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="142.0" layoutY="20.0" onAction="#ActionComboBoxWybierzProjekt" prefHeight="25.0" prefWidth="180.0" styleClass="comboboxProjekt" />
       <Button fx:id="buttonUtworzZadanie" layoutX="418.0" layoutY="202.0" mnemonicParsing="false" onAction="#ActionButtonUtworzZadanie" styleClass="buttonCzGrupy" text="Utwórz Zadanie" />
       <Button fx:id="buttonWroc" layoutX="536.0" layoutY="202.0" mnemonicParsing="false" onAction="#ActionWroc" styleClass="buttonCzGrupy" text="Wróć" />
    </children>
