@@ -1,28 +1,50 @@
 
-.anchorPanelLogowania {
+.anchorPane {
     
     -fx-background-color: #f5f9fc;
     
 }
 
-.anchorpaneCzGrupy {
-    -fx-background-color: #f5f9fc;   
-}
-
-.anchorpaneZadania {
+.anchorPaneZadania {
     -fx-background-color: white;
     -fx-border-width: 1.5px;
     -fx-border-color: #e5e5e5;
 }
 
-.anchorpaneCzGrupyRight {
+.anchorPaneRight {
         -fx-background-color: white;
 }
 
-.anchorpaneChat {
+.anchorPaneChat {
     -fx-background-color: white;
     -fx-border-width: 1.5px;
     -fx-border-color: #e5e5e5;    
+}
+
+.anchorPaneLogowaniaMini {
+    -fx-background-color: blue;
+}
+
+.scrollPane {
+    
+}
+
+.scrollPaneZadania {
+    -fx-background-color: white;
+    -fx-border-width: 1.5px;
+    -fx-border-color: #e5e5e5;
+}
+
+.label {
+    
+}
+
+.labelTytul {
+    
+}
+
+.pane {
+    
 }
 
 .progresBar {
@@ -31,60 +53,43 @@
     -fx-border-color: #e5e5e5;
 }
 
-.anchorpaneZadanieWew {
-    -fx-background-color: blue;
-}
-
-.comboboxProjekt {
+.comboBox {
     -fx-background-color: white;
     -fx-border-color: #f5f9fc;
     -fx-border-width: 2px;
 }
 
-.comboboxSprint {
-    -fx-background-color: white;
-    -fx-border-color: #f5f9fc;
-    -fx-border-width: 2px;
-}
-
-.buttonLogowania {
+.button {
     -fx-background-color: #5bbdcf;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-.buttonCzGrupy {
-    -fx-background-color: #5bbdcf;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
-
-.textfieldLogowania {
+.textField {
    -fx-background-color: white; 
    -fx-border-color: #3bd1ec;
 }
 
-.passwordfieldLogowania {
-   -fx-background-color: white; 
-   -fx-border-color: #3bd1ec;
-}
-
-.paneCzGrupyData {
-   -fx-background-color: white;     
-}
-
-.vbox {
-    -fx-background-color: black;
-}
-
-.tableview {
-    -fx-text-fill: black;
-}
-
-.textarea {
+.textArea {
     
 }
 
-.datapicker {
+.dataPicker {
+    
+}
+
+.tableView {
+    
+}
+
+.tableColumn {
+    
+}
+
+.hyperLink {
+    
+}
+
+.listView {
     
 }

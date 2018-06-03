@@ -369,7 +369,7 @@ String aktualnyLiderImie;
     String[] nazwa;
     int idWybranegoLidera;    
     
-    da
+    
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             TRZEBA DODAĆ LUŹNEGO LIDERA I SPRAWDZIĆ CZY WSZYSTKO DZIAŁA
     
     @FXML
