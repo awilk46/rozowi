@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="515.0" prefWidth="600.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Tworzenia_ProjektowController">
+    <stylesheets>
+        <URL value="@Design.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="textfieldNazwaProjektu" layoutX="28.0" layoutY="38.0" styleClass="textField" />
+      <ComboBox fx:id="comboboxWybierzFirme" layoutX="202.0" layoutY="38.0" onAction="#ActionComboBoxWybierzFirme" prefWidth="150.0" styleClass="comboBox" />
+      <Button fx:id="buttonDodajFirme" layoutX="478.0" layoutY="38.0" mnemonicParsing="false" onAction="#ActionButtonDodajFirme" text="Dodaj Firmę" />
+      <DatePicker fx:id="datepickerDataEnd" layoutX="28.0" layoutY="90.0" onAction="#ActionDatePickerTerminEnd" prefHeight="25.0" prefWidth="149.0" styleClass="dataPicker" />
+      <TextField fx:id="textfieldKoszt" layoutX="111.0" layoutY="190.0" prefHeight="25.0" prefWidth="110.0" styleClass="textField" />
+      <TextArea fx:id="textareaOpisProjektu" layoutX="24.0" layoutY="251.0" prefHeight="200.0" prefWidth="280.0" styleClass="textField" />
+      <TextField fx:id="textfieldNazwaFirmy" layoutX="430.0" layoutY="90.0" styleClass="textField" />
+      <TextField fx:id="textfieldAdresFirmy" layoutX="430.0" layoutY="124.0" styleClass="textField" />
+      <TextField fx:id="textfieldImiePrzedstawiciela" layoutX="430.0" layoutY="183.0" styleClass="textField" />
+      <TextField fx:id="textfieldNazwiskoPrzedstawiciela" layoutX="430.0" layoutY="218.0" styleClass="textField" />
+      <TextArea fx:id="textareaOpisFirmy" layoutX="325.0" layoutY="375.0" prefHeight="131.0" prefWidth="264.0" styleClass="textArea" />
+      <Label layoutX="28.0" layoutY="14.0" text="Nazwa Projektu:" />
+      <Label layoutX="28.0" layoutY="68.0" text="Termin Ukończenia:" />
+      <Label layoutX="24.0" layoutY="194.0" text="Koszt:" />
+      <Label layoutX="27.0" layoutY="222.0" text="Opis:" />
+      <Label layoutX="202.0" layoutY="14.0" text="Wybierz Firmę:" />
+      <Label layoutX="319.0" layoutY="90.0" text="Nazwa Firmy:" />
+      <Label layoutX="322.0" layoutY="128.0" text="Adres Firmy:" />
+      <Label layoutX="466.0" layoutY="158.0" text="Przedstawiciel:" />
+      <Label layoutX="334.0" layoutY="187.0" text="Imie:" />
+      <Label layoutX="334.0" layoutY="222.0" text="Nazwisko" />
+      <Label layoutX="335.0" layoutY="255.0" text="Email:" />
+      <TextField fx:id="textfieldEmailFirmy" layoutX="431.0" layoutY="251.0" styleClass="textField" />
+      <Button fx:id="buttonDodajProjekt" layoutX="206.0" layoutY="465.0" mnemonicParsing="false" onAction="#ActionButtonDodajProjekt" text="Dodaj Projekt" />
+      <Button fx:id="buttonWroc" layoutX="24.0" layoutY="465.0" mnemonicParsing="false" onAction="#ActionWroc" text="Wróć" />
+      <Label layoutX="317.0" layoutY="352.0" text="Opis Firmy:" />
+      <TextField fx:id="textfieldLoginPrzedstawiciela" layoutX="430.0" layoutY="285.0" styleClass="textField" />
+      <Label layoutX="334.0" layoutY="289.0" text="Login" />
+      <Label layoutX="334.0" layoutY="324.0" text="Hasło" />
+      <PasswordField fx:id="passwordfieldHasloPrzedstawiciela" layoutX="430.0" layoutY="320.0" styleClass="textField" />
+      <Label layoutX="17.0" layoutY="137.0" prefHeight="17.0" prefWidth="110.0" text="Wybierz Kierownika" />
+      <ComboBox fx:id="comboboxWybierzKierownika" layoutX="146.0" layoutY="131.0" onAction="#ActionComboBoxWybierzKierownika" prefWidth="150.0" styleClass="comboBox" />
+   </children>
+</AnchorPane>

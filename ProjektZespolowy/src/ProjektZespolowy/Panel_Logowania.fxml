@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="signPane" prefHeight="358.0" prefWidth="655.0" styleClass="anchorPane" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_LogowaniaController">
+   <children>
+      <AnchorPane layoutX="411.0" layoutY="26.0" prefHeight="307.0" prefWidth="220.0" styleClass="anchorPaneLogowaniaMini" stylesheets="@Design.css">
+         <children>
+            <TextField fx:id="textfieldLogin" layoutX="17.0" layoutY="110.0" prefHeight="27.0" prefWidth="187.0" styleClass="textField" stylesheets="@Design.css">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></TextField>
+            <PasswordField fx:id="textfieldHaslo" layoutX="17.0" layoutY="162.0" prefHeight="27.0" prefWidth="187.0" styleClass="textField" stylesheets="@Design.css" />
+            <Button fx:id="buttonZaloguj" layoutX="17.0" layoutY="214.0" mnemonicParsing="false" onAction="#ActionButtonZaloguj" prefHeight="25.0" prefWidth="187.0" stylesheets="@Design.css" text="Zaloguj" textFill="#514a53" />
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="71.0" layoutY="41.0" prefHeight="37.0" prefWidth="79.0" style="../Design.css" styleClass="labelLogowania" text="SIgn In" textFill="#514a53">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="hyperlinkForgotPassword" layoutX="60.0" layoutY="253.0" styleClass="hyperLink" stylesheets="@Design.css" text="Forgot Password?" textAlignment="CENTER" textFill="#514a53" underline="true" />
+         </children>
+      </AnchorPane>
+      <ImageView cache="true" fitHeight="142.0" fitWidth="321.0" layoutX="52.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" style="../Design.css" styleClass="imageviewLogowania">
+         <image>
+            <Image url="@images/task-outline-blue.png" />
+         </image>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+
+            </Lighting>
+         </effect>
+      </ImageView>
+      <Label layoutX="54.0" layoutY="181.0" prefHeight="65.0" prefWidth="270.0" style="../Design.css" styleClass="label" text="Welcome to task manager">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="238.0" style="../Design.css" styleClass="label" text="You are not a TASK user? Click here for registration." />
+      <Button fx:id="buttonZarejestruj" layoutX="55.0" layoutY="267.0" mnemonicParsing="false" onAction="#ActionButtonZarejestruj" prefHeight="25.0" prefWidth="102.0" stylesheets="@Design.css" text="Zarejestruj" textFill="#514a53" />
+   </children>
+</AnchorPane>

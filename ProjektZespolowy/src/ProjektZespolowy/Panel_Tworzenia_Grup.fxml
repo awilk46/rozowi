@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="520.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Tworzenia_GrupController">
+    <stylesheets>
+        <URL value="@Design.css" />
+    </stylesheets>
+   <children>
+      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="35.0" layoutY="58.0" onAction="#ActionComboBoxWybierzProjekt" prefWidth="150.0" styleClass="comboBox" />
+      <Label layoutX="35.0" layoutY="28.0" text="Wybierz Projekt:" />
+      <TextArea fx:id="textareaOpisGrupy" layoutX="35.0" layoutY="206.0" prefHeight="200.0" prefWidth="200.0" styleClass="textArea" />
+      <TextField fx:id="textfieldNadajGrupieNazwe" layoutX="35.0" layoutY="137.0" styleClass="textField" />
+      <Label layoutX="35.0" layoutY="99.0" text="Nadaj grupie nazwę:" />
+      <Label layoutX="35.0" layoutY="174.0" text="Opis grupy:" />
+      <ComboBox fx:id="comboboxWybierzLidera" layoutX="211.0" layoutY="58.0" onAction="#ActionCombBboxWybierzLidera" prefWidth="150.0" styleClass="comboBox" />
+      <Label layoutX="228.0" layoutY="28.0" text="Wybierz Lidera Grupy:" />
+      <Button fx:id="buttonDodajDoGrupy" layoutX="390.0" layoutY="138.0" mnemonicParsing="false" onAction="#ActionButtonDodajDoGrupy" text="Dodaj do grupy" />
+      <Button fx:id="buttonUsunZGrupy" layoutX="400.0" layoutY="494.0" mnemonicParsing="false" onAction="#ActionButtonUsunZGrupy" text="Usuń z grupy" />
+      <Button fx:id="buttonStworzGrupe" layoutX="189.0" layoutY="494.0" mnemonicParsing="false" onAction="#ActionButtonStworzGrupe" text="Stwórz Grupę" />
+      <Button fx:id="buttonWroc" layoutX="12.0" layoutY="507.0" mnemonicParsing="false" onAction="#ActionWroc" text="Wróć" />
+      <ListView fx:id="listviewDodani" layoutX="255.0" layoutY="196.0" prefHeight="284.0" prefWidth="235.0" styleClass="listView" stylesheets="@Design.css" />
+      <Label layoutX="229.0" layoutY="108.0" text="Wybierz Pracownika:" />
+      <ComboBox fx:id="comboboxWybierzPracownika" layoutX="212.0" layoutY="138.0" onAction="#ActionCombBboxWybierzPracownika" prefWidth="150.0" styleClass="comboBox" />
+      <Label layoutX="255.0" layoutY="174.0" text="Lista dodanych członków:" />
+   </children>
+</AnchorPane>

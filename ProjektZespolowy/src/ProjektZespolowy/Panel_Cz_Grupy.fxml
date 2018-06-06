@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="paneAll" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1341.0" style="" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Cz_GrupyController">
+    <stylesheets>
+        <URL value="@Design.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane fx:id="paneMiddle" layoutX="8.0" layoutY="8.0" prefHeight="786.0" prefWidth="1085.0" styleClass="anchorpaneCzGrupy" stylesheets="@Design.css">
+         <children>
+            <Label fx:id="labelToDo" layoutX="68.0" layoutY="79.0" stylesheets="@Design.css" text="DO ZROBIENIA">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDuring" layoutX="327.0" layoutY="79.0" stylesheets="@Design.css" text="W TRAKCIE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelTesting" layoutX="559.0" layoutY="79.0" stylesheets="@Design.css" text="TESTOWANE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelReady" layoutX="828.0" layoutY="79.0" stylesheets="@Design.css" text="GOTOWE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Pane fx:id="paneTitle" layoutX="32.0" layoutY="14.0" prefHeight="27.0" prefWidth="517.0" styleClass="pane" stylesheets="@Design.css">
+               <children>
+                  <Label fx:id="labelDate2" layoutX="370.0" stylesheets="@Design.css" text="DATA END">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelTitle2" layoutX="340.0" stylesheets="@Design.css" text="do">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelDate1" layoutX="231.0" stylesheets="@Design.css" text="DATA START">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelTitle1" layoutX="6.0" stylesheets="@Design.css" text="Termin realizacji sprintu od">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <AnchorPane fx:id="paneChatGrupa" layoutX="12.0" layoutY="423.0" prefHeight="265.0" prefWidth="439.0" styleClass="anchorpaneChat" stylesheets="@Design.css">
+               <children>
+                  <TextArea fx:id="textareaChatGrupa" layoutX="6.0" layoutY="27.0" prefHeight="189.0" prefWidth="427.0" />
+                  <TextField fx:id="textfieldChatGrupa" layoutX="6.0" layoutY="228.0" prefHeight="25.0" prefWidth="267.0" />
+                  <Button fx:id="buttonWyslijGrupa" layoutX="279.0" layoutY="228.0" mnemonicParsing="false" onAction="#ActionChatWyslij" styleClass="buttonCzGrupy" text="Wyślij" />
+                  <Button fx:id="buttonCzyscChatGrupa" layoutX="336.0" layoutY="228.0" mnemonicParsing="false" onAction="#ActionChatWyczysc" styleClass="buttonCzGrupy" text="Wyczyść Chat" />
+                  <Label fx:id="labelChatTytulGrupa" layoutX="6.0" layoutY="6.0" prefHeight="17.0" prefWidth="44.0" text="Grupa: " />
+                  <Label fx:id="labelChatNazwaGrupy" layoutX="50.0" layoutY="6.0" prefHeight="17.0" prefWidth="374.0" text="Nazwa Grupy" />
+               </children>
+            </AnchorPane>
+            <Button fx:id="buttonWyjdz" layoutX="484.0" layoutY="454.0" mnemonicParsing="false" onAction="#ActionWyjdz" prefHeight="29.0" prefWidth="118.0" stylesheets="@Design.css" text="Wyjdź" />
+            <Label layoutX="576.0" layoutY="19.0" stylesheets="@Design.css" text="Wybierz Sprint:" />
+            <ComboBox fx:id="comboboxWybierzSprint" layoutX="699.0" layoutY="13.0" onAction="#ActionComboBoxWybierzSprint" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+            <ProgressBar fx:id="barSprint" layoutX="122.0" layoutY="48.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
+            <ProgressBar fx:id="barDataSprint" layoutX="443.0" layoutY="49.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
+            <Label layoutX="32.0" layoutY="49.0" stylesheets="@Design.css" text="Progres Zadań:" />
+            <Label layoutX="344.0" layoutY="49.0" stylesheets="@Design.css" text="Progres Czasu:" />
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="ScrollPaneRight" layoutX="1100.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="260.0" styleClass="scrollPane" stylesheets="@Design.css">
+         <content>
+            <AnchorPane fx:id="paneRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1050.0" prefWidth="258.0" styleClass="anchorPaneRight" stylesheets="@Design.css">
+               <children>
+                  <TextField fx:id="textfieldStatus" layoutX="81.0" layoutY="18.0" prefHeight="25.0" prefWidth="140.0" styleClass="textField" stylesheets="@Design.css" />
+                  <Label fx:id="labelInfo" layoutX="19.0" layoutY="20.0" stylesheets="@Design.css" text="Status:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelPriorytet" layoutX="17.0" layoutY="64.0" stylesheets="@Design.css" text="Priorytet:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textfieldPriorytet" layoutX="81.0" layoutY="62.0" prefHeight="25.0" prefWidth="140.0" styleClass="textField" stylesheets="@Design.css" />
+                  <TextField fx:id="textfieldUtworzono" layoutX="130.0" layoutY="102.0" prefHeight="25.0" prefWidth="90.0" styleClass="textField" stylesheets="@Design.css" />
+                  <Label fx:id="labelUtworzono" layoutX="22.0" layoutY="103.0" stylesheets="@Design.css" text="Utworzono:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelZaaktualizowano" layoutX="18.0" layoutY="149.0" stylesheets="@Design.css" text="Zaaktualizowano:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textfieldZaaktualizowano" layoutX="132.0" layoutY="147.0" prefHeight="25.0" prefWidth="90.0" styleClass="textField" stylesheets="@Design.css" />
+                  <Label fx:id="labelOpis" layoutX="22.0" layoutY="180.0" stylesheets="@Design.css" text="Opis:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelKomentarz" layoutX="19.0" layoutY="405.0" stylesheets="@Design.css" text="Komentarz:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="textareaOpis" layoutX="12.0" layoutY="208.0" prefHeight="183.0" prefWidth="230.0" />
+                  <TextArea fx:id="textareaKomentarz" layoutX="12.0" layoutY="433.0" prefHeight="183.0" prefWidth="230.0" />
+                  <Button fx:id="buttonZapiszZmianyZadanie" layoutX="12.0" layoutY="632.0" mnemonicParsing="false" onAction="#ActionButtonZapiszZmianyZadanie" stylesheets="@Design.css" text="Zapisz Zmiany" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="scrollReady" layoutX="758.0" layoutY="126.0" prefHeight="300.0" prefWidth="230.0" styleClass="scrollPane" stylesheets="@Design.css">
+         <content>
+            <AnchorPane fx:id="paneReady" prefHeight="300.0" prefWidth="215.0" styleClass="anchorPaneZadania" stylesheets="@Design.css" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="scrollTesting" layoutX="512.0" layoutY="126.0" prefHeight="300.0" prefWidth="230.0" styleClass="scrollPane" stylesheets="@Design.css">
+         <content>
+            <AnchorPane fx:id="paneTesting" prefHeight="300.0" prefWidth="215.0" styleClass="anchorPaneZadania" stylesheets="@Design.css" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="scrollToDo" layoutX="23.0" layoutY="126.0" prefHeight="300.0" prefWidth="230.0" styleClass="scrollPane" stylesheets="@Design.css">
+         <content>
+            <AnchorPane fx:id="paneToDo" prefHeight="300.0" prefWidth="215.0" styleClass="anchorPaneZadania" stylesheets="@Design.css" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="scrollDuring" layoutX="267.0" layoutY="126.0" prefHeight="300.0" prefWidth="230.0" styleClass="scrollPane" stylesheets="@Design.css">
+         <content>
+            <AnchorPane fx:id="paneDuring" prefHeight="300.0" prefWidth="215.0" styleClass="anchorPaneZadania" stylesheets="@Design.css" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

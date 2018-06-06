@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="520.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Edycji_GrupController">
+   <children>
+      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="35.0" layoutY="58.0" onAction="#ActionComboBoxWybierzProjekt" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="35.0" layoutY="28.0" stylesheets="@Design.css" text="Wybierz Projekt:" />
+      <TextArea fx:id="textareaOpisGrupy" layoutX="35.0" layoutY="274.0" prefHeight="200.0" prefWidth="200.0" styleClass="textArea" stylesheets="@Design.css" />
+      <TextField fx:id="textfieldNadajGrupieNazwe" layoutX="35.0" layoutY="205.0" styleClass="textField" stylesheets="@Design.css" />
+      <Label layoutX="35.0" layoutY="167.0" stylesheets="@Design.css" text="Nadaj grupie nazwę:" />
+      <Label layoutX="35.0" layoutY="242.0" stylesheets="@Design.css" text="Opis grupy:" />
+      <ComboBox fx:id="comboboxWybierzLidera" layoutX="211.0" layoutY="58.0" onAction="#ActionCombBboxWybierzLidera" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="228.0" layoutY="28.0" stylesheets="@Design.css" text="Wybierz Lidera Grupy:" />
+      <Button fx:id="buttonDodajDoGrupy" layoutX="390.0" layoutY="138.0" mnemonicParsing="false" onAction="#ActionButtonDodajDoGrupy" stylesheets="@Design.css" text="Dodaj do grupy" />
+      <Button fx:id="buttonUsunZGrupy" layoutX="400.0" layoutY="494.0" mnemonicParsing="false" onAction="#ActionButtonUsunZGrupy" stylesheets="@Design.css" text="Usuń z grupy" />
+      <Button fx:id="buttonAktualizujGrupe" layoutX="189.0" layoutY="494.0" mnemonicParsing="false" onAction="#ActionButtonAktualizujGrupe" stylesheets="@Design.css" text="Aktualizuj Grupę" />
+      <Button fx:id="buttonWroc" layoutX="12.0" layoutY="507.0" mnemonicParsing="false" onAction="#ActionWroc" stylesheets="@Design.css" text="Wróć" />
+      <ListView fx:id="listviewDodani" layoutX="255.0" layoutY="196.0" prefHeight="284.0" prefWidth="235.0" />
+      <Label layoutX="229.0" layoutY="108.0" stylesheets="@Design.css" text="Wybierz Pracownika:" />
+      <ComboBox fx:id="comboboxWybierzPracownika" layoutX="212.0" layoutY="138.0" onAction="#ActionCombBboxWybierzPracownika" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="255.0" layoutY="174.0" stylesheets="@Design.css" text="Lista dodanych członków:" />
+      <Label layoutX="35.0" layoutY="87.0" stylesheets="@Design.css" text="Wybierz Grupę:" />
+      <ComboBox fx:id="comboboxWybierzGrupe" layoutX="35.0" layoutY="117.0" onAction="#ActionComboBoxWybierzGrupe" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+   </children>
+   <stylesheets>
+      <URL value="@Design.css" />
+   </stylesheets>
+</AnchorPane>
