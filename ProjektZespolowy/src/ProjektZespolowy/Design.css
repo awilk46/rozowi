@@ -22,7 +22,10 @@
 }
 
 .anchorPaneLogowaniaMini {
-    -fx-background-color: blue;
+}
+
+.imageviewLogowania {
+    
 }
 
 .scrollPane {
@@ -34,6 +37,7 @@
     -fx-border-width: 1.5px;
     -fx-border-color: #e5e5e5;
 }
+
 
 .label {
     

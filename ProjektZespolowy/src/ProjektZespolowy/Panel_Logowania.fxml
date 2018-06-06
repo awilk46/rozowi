@@ -52,12 +52,12 @@
             </Lighting>
          </effect>
       </ImageView>
-      <Label alignment="CENTER" layoutX="78.0" layoutY="191.0" prefHeight="65.0" prefWidth="270.0" style="../Design.css" styleClass="label" text="Welcome to task manager">
+      <Label layoutX="54.0" layoutY="181.0" prefHeight="65.0" prefWidth="270.0" style="../Design.css" styleClass="label" text="Welcome to task manager">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="248.0" style="../Design.css" styleClass="label" text="You are not a TASK user? Click here for registration." />
-      <Button fx:id="buttonZarejestruj" layoutX="163.0" layoutY="297.0" mnemonicParsing="false" onAction="#ActionButtonZarejestruj" prefHeight="25.0" prefWidth="102.0" stylesheets="@Design.css" text="Zarejestruj" textFill="#514a53" />
+      <Label layoutX="56.0" layoutY="238.0" style="../Design.css" styleClass="label" text="You are not a TASK user? Click here for registration." />
+      <Button fx:id="buttonZarejestruj" layoutX="55.0" layoutY="267.0" mnemonicParsing="false" onAction="#ActionButtonZarejestruj" prefHeight="25.0" prefWidth="102.0" stylesheets="@Design.css" text="Zarejestruj" textFill="#514a53" />
    </children>
 </AnchorPane>
