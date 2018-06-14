@@ -65,13 +65,14 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     private Button buttonUsunZGrupy;
     
     @FXML
-    private Button buttonWroc;    
-    
+    private Button buttonWroc;
     
     @FXML
     private ListView listviewDodani;
+    
     @FXML
     private Button buttonAktualizujGrupe;
+    
     @FXML
     private ComboBox<?> comboboxWybierzGrupe;
     
@@ -92,6 +93,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     
     
     public void WczytajProjekty() {
+        
         try {
 
                 Connection connection = connect();
@@ -105,11 +107,15 @@ public class Panel_Tworzenia_GrupController implements Initializable {
                     comboboxWybierzProjekt.getItems().addAll(rs.getString("NAZWA_PROJEKTU"));   
                 }
                 
+                rs.close();
                 stat.close();
                 connection.commit();
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów.");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
@@ -117,7 +123,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
 
     public void WczytajWolnychLiderow(){
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
@@ -139,6 +145,9 @@ public class Panel_Tworzenia_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać liderów.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
             }
     }
@@ -146,7 +155,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
 
     public void WczytajWolnychPracownikow(){
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
@@ -168,6 +177,9 @@ public class Panel_Tworzenia_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać pracowników.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
             }
     }    
@@ -220,6 +232,9 @@ public class Panel_Tworzenia_GrupController implements Initializable {
             connection.close();
 
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu.");
+            
             System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
         }        
     }
@@ -258,6 +273,9 @@ public class Panel_Tworzenia_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać lidera.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
             }   
     }
@@ -300,6 +318,7 @@ public class Panel_Tworzenia_GrupController implements Initializable {
     int idWybranego;
     
     
+    @FXML
     private void ActionButtonStworzGrupe(ActionEvent event) {
         
         nazwaGrupy = textfieldNadajGrupieNazwe.getText();
@@ -365,17 +384,26 @@ public class Panel_Tworzenia_GrupController implements Initializable {
             wybraniPracownicy.clear();
         
         } catch (SQLException e){
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się utworzyć grupy.");
+            
             System.err.println(" nie można wykonac tego zapytania: 5 " + e.getMessage());    
         }        
         
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Utworzono Grupę!");
-
-                alert.showAndWait();        
+            PokazAlert("Informacja", "Potwierdzenie", "Utworzono Grupę!");        
         
         //JOptionPane.showMessageDialog(null, "Utworzono Grupę", "Tworzenie Grupy", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
     }
 
     
@@ -415,10 +443,13 @@ public class Panel_Tworzenia_GrupController implements Initializable {
                     connection.close();
 
                 } catch (SQLException e) {
+                    
+                    PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać pracownika.");
+                    
                     System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
                 }
-        }
-        
-    }
+        }   
+    }    
+    
     
 }

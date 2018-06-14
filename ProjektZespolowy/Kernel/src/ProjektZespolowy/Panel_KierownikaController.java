@@ -7,6 +7,15 @@ package ProjektZespolowy;
 
 import static ProjektZespolowy.Panel_LogowaniaController.getZalogowany;
 import static ProjektZespolowy.Polaczenie.connect;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,12 +39,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -116,7 +128,13 @@ public class Panel_KierownikaController implements Initializable {
     private Button buttonWyslijProjekt;
     
     @FXML
-    private Button buttonCzyscChatProjekt; 
+    private Button buttonCzyscChatProjekt;
+    
+    @FXML
+    private Button buttonZarejestrujUzytkownika;
+    
+    @FXML
+    private Button buttonGenerujRaport; 
     
     @FXML
     private TableView tableviewZadania;
@@ -182,6 +200,7 @@ public class Panel_KierownikaController implements Initializable {
         
     }
     
+    
     public void WczytajProjekty() {
         try {
 
@@ -203,6 +222,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
                 System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
             }        
     }
@@ -253,6 +275,7 @@ public class Panel_KierownikaController implements Initializable {
             while(rs.next()){
                 idProjektu = rs.getInt("ID_PROJEKTU");
                 idProjektuChat = idProjektu;
+                idProjektuR = idProjektu;
             }
             
             rs.close();
@@ -267,6 +290,9 @@ public class Panel_KierownikaController implements Initializable {
             comboboxWybierzGrupe.getItems().clear();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu ID: #1");
+            
             System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT 1: " + e.getMessage());
         }
         
@@ -302,6 +328,9 @@ public class Panel_KierownikaController implements Initializable {
                 connectiond.close();
                 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu ID: #2");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT 2: " + e.getMessage());
             }
          
@@ -327,6 +356,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
                 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu ID: #3");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT 3: " + e.getMessage());
             }
             
@@ -355,6 +387,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
                 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu ID: #4");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT 4: " + e.getMessage());
             }
             
@@ -391,6 +426,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
                 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu ID: #5");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT 5: " + e.getMessage());
             }
     }
@@ -432,6 +470,9 @@ public class Panel_KierownikaController implements Initializable {
             comboboxWybierzSprint.getItems().clear();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #1");
+            
             System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 1: " + e.getMessage());
         }        
         
@@ -456,6 +497,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #2");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 2: " + e.getMessage());
             }
         
@@ -482,6 +526,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #3");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 3: " + e.getMessage());
             }        
         
@@ -510,6 +557,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #4");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 4: " + e.getMessage());
             }
                 
@@ -546,6 +596,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #5");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 5: " + e.getMessage());
             }
                 
@@ -572,6 +625,9 @@ public class Panel_KierownikaController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy ID: #6");
+                
                 System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE 6: " + e.getMessage());
             }
     }
@@ -625,7 +681,10 @@ public class Panel_KierownikaController implements Initializable {
             connection.close();
             
         } catch (SQLException e) {
-            System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT 1: " + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu ID: #1");
+            
+            System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT #1: " + e.getMessage());
         }
 
         try {
@@ -654,7 +713,10 @@ public class Panel_KierownikaController implements Initializable {
                 connection.commit();
                 connection.close();        
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT 2: " + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu ID: #2");
+                
+                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT #2: " + e.getMessage());
             }
                 
         try {
@@ -697,7 +759,10 @@ public class Panel_KierownikaController implements Initializable {
                 connection.commit();
                 connection.close();        
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT 3: " + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu ID: #3");
+                
+                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT #3: " + e.getMessage());
             }
                 
         try {
@@ -773,7 +838,10 @@ public class Panel_KierownikaController implements Initializable {
                 connection.commit();
                 connection.close();        
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT 4: " + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu ID: #4");
+                
+                System.err.println(" nie można wykonac tego zapytania WYBIERZ SPRINT #4: " + e.getMessage());
             }
         
     }
@@ -886,7 +954,10 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.commit();
                 connection.close();
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 1" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu ID #1");
+                
+                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT #1" + e.getMessage());
             }                
                 
         try {
@@ -911,7 +982,10 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.commit();
                 connection.close();
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 2" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu ID #2");
+                
+                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT #2" + e.getMessage());
             }        
         
         try {
@@ -951,7 +1025,10 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 3" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu ID #3");
+                
+                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT #3" + e.getMessage());
             }        
     }     
 
@@ -988,6 +1065,9 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 }
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wysłać wiadomości na chacie projektu");
+                
                 System.err.println(" nie można wykonac tego zapytania: CHAT PROJEKTU WYŚLIJ" + e.getMessage());
             }   
     }
@@ -999,5 +1079,352 @@ public void WczytajChatProjektu(int czyscProjektu) {
         czyscProjektu = 1;
         WczytajChatProjektu(czyscProjektu);
     }
+
+    @FXML
+    private void ActionButtonZarejestrujUzytkownika(ActionEvent event) throws IOException {
+        
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+        
+        Parent root = null;
+        Stage stage = new Stage();
+        
+        root = FXMLLoader.load(getClass().getResource("Panel_Rejestracji.fxml"));
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add
+        (Glowna.class.getResource("Design.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }   
+
+    
+    int idProjektuR = 0; // pobrane i przypisane przy wybierz projekt combobox
+    String nazwaProjektuR = "";
+    int idFirmyZlecajacejR = 0;
+    String dataStartR = "";
+    String dataEndR = "";
+    int kosztProjektuR = 0;
+    String opisProjektuR = "";
+    String statusProjektuR = "";
+    String komentarzZlecajacegoR = "";
+    int idKierownikaR = 0;    
+    String nazwaFirmyZlecajacej = "";
+    String imieReprezentant = "";
+    String nazwiskoReprezentant = "";
+    String dataUtworzeniaRaportu = "";
+    
+    int idZleceniobiorcyR = 0;
+    String imieZleceniobiorcyR = "";
+    String nazwiskoZleceniobiorcyR = "";
+    String nazwaFirmyZleceniobiorcy = "";
+    
+    String imieKierownikaR = "";
+    String nazwiskoKierownikaR = "";
+    String nazwaFirmyKierownika = "";   
+    
+    int idLideraR = 0;
+    String imieLideraR = "";
+    String nazwiskoLideraR = "";
+    String nazwaFirmyLidera = "";
+    String nazwaGrupyLidera = "";   
+    
+    int liczbaCzlonkowGrup = 0;
+    
+    String elo = null;
+    
+    ObservableList<Lider> Liderzy = FXCollections.observableArrayList();
+    
+    
+    @FXML
+    private void ActionButtonGenerujRaport(ActionEvent event) {
+        
+      try {
+        // pobieranie danych o przedstawicielu 
+        try {
+            
+                dataUtworzeniaRaportu = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                //query = "SELECT * FROM PROJEKTY P, UZYTKOWNICY U, FIRMY F WHERE P.ID_PROJEKTU =" + idProjektuR + "";
+                query = "SELECT DISTINCT P.NAZWA_PROJEKTU, F.NAZWA_FIRMY, P.DATA_START, P.DATA_END, P.KOSZT_PROJEKTU, P.OPIS_PROJEKTU, P.STATUS_PROJEKTU, P.KOMENTARZ_ZLECAJACEGO, U.IMIE, U.NAZWISKO FROM PROJEKTY P, UZYTKOWNICY U, FIRMY F INNER JOIN PROJEKTY ON P.ID_PROJEKTU =" + idProjektuR + " INNER JOIN FIRMY ON F.ID_FIRMY = P.ID_FIRMY_ZLECAJACEJ INNER JOIN UZYTKOWNICY ON (SELECT U.ID_UZYTKOWNIKA WHERE U.ID_FIRMY = P.ID_FIRMY_ZLECAJACEJ) = U.ID_UZYTKOWNIKA";
+                //query = "SELECT F.NAZWA_FIRMY, U.IMIE, U.NAZWISKO FROM PROJEKTY P, UZYTKOWNICY U, FIRMY F INNER JOIN FIRMY ON F.ID_FIRMY = P.ID_FIRMY_ZLECAJACEJ INNER JOIN UZYTKOWNICY ON P.ID_KIEROWNIKA = U.ID_UZYTKOWNIKA";
+                
+                ResultSet rs = stat.executeQuery(query);
+                
+                    nazwaProjektuR = rs.getString("NAZWA_PROJEKTU");
+                    //idFirmyZlecajacejR = rs.getInt("ID_FIRMY_ZLECAJACEJ"); @@
+                    nazwaFirmyZlecajacej = rs.getString("NAZWA_FIRMY");
+                    dataStartR = rs.getString("DATA_START");
+                    dataEndR = rs.getString("DATA_END");
+                    kosztProjektuR = rs.getInt("KOSZT_PROJEKTU");
+                    opisProjektuR = rs.getString("OPIS_PROJEKTU");
+                    statusProjektuR = rs.getString("STATUS_PROJEKTU");
+                    komentarzZlecajacegoR = rs.getString("KOMENTARZ_ZLECAJACEGO");
+                    //idKierownikaR = rs.getInt("ID_KIEROWNIKA"); @@
+                    imieReprezentant = rs.getString("IMIE");
+                    nazwiskoReprezentant = rs.getString("NAZWISKO");
+
+                    System.out.println("Firma zleceniodawcy: "+nazwaFirmyZlecajacej+" Imie: "+imieReprezentant+" Nazwisko: " +nazwiskoReprezentant);
+                
+                rs.close();
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #1");
+                
+                System.err.println(" nie można wykonac tego zapytania: GENERUJ RAPORT #1 " + e.getMessage());
+            }
+        
+        // pobieranie danych o przedstawicielu zleceniobiorcy
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT DISTINCT U.ID_UZYTKOWNIKA, U.IMIE, U.NAZWISKO, F.NAZWA_FIRMY FROM UZYTKOWNICY U, FIRMY F, STANOWISKA S INNER JOIN FIRMY ON F.ID_FIRMY = U.ID_FIRMY WHERE U.ID_STANOWISKA = 2";
+ 
+                ResultSet rs = stat.executeQuery(query);
+                
+                    idZleceniobiorcyR = rs.getInt("ID_UZYTKOWNIKA");
+                    imieZleceniobiorcyR = rs.getString("IMIE");
+                    nazwiskoZleceniobiorcyR = rs.getString("NAZWISKO");
+                    nazwaFirmyZleceniobiorcy = rs.getString("NAZWA_FIRMY");
+
+                    System.out.println("Firma Zleceniobiorcy: "+nazwaFirmyZleceniobiorcy+" Imie: "+imieZleceniobiorcyR+" Nazwisko: " +nazwiskoZleceniobiorcyR);                    
+                
+                
+                rs.close();
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #2");
+                
+                System.err.println(" nie można wykonac tego zapytania: GENERUJ RAPORT #2 " + e.getMessage());
+            }        
+        
+        
+        // pobieranie danych o kierowniku
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT DISTINCT U.ID_UZYTKOWNIKA, U.IMIE, U.NAZWISKO, F.NAZWA_FIRMY FROM UZYTKOWNICY U, FIRMY F, STANOWISKA S INNER JOIN UZYTKOWNICY ON U.ID_PROJEKTU =" + idProjektuR + " INNER JOIN FIRMY ON F.ID_FIRMY = U.ID_FIRMY WHERE U.ID_STANOWISKA = 3";
+ 
+                ResultSet rs = stat.executeQuery(query);
+                
+                    idKierownikaR = rs.getInt("ID_UZYTKOWNIKA");
+                    imieKierownikaR = rs.getString("IMIE");
+                    nazwiskoKierownikaR = rs.getString("NAZWISKO");
+                    nazwaFirmyKierownika = rs.getString("NAZWA_FIRMY");
+
+                    System.out.println("Firma Kierownika: "+nazwaFirmyKierownika+" Imie: "+imieKierownikaR+" Nazwisko: " +nazwiskoKierownikaR);                    
+                
+                
+                rs.close();
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #3");
+                
+                System.err.println(" nie można wykonac tego zapytania: GENERUJ RAPORT #3 " + e.getMessage());
+            }        
+        
+        // pobieranie danych o liderach
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT DISTINCT U.ID_UZYTKOWNIKA, U.IMIE, U.NAZWISKO, G.NAZWA_GRUPY FROM UZYTKOWNICY U, GRUPY G INNER JOIN UZYTKOWNICY ON U.ID_PROJEKTU =" + idProjektuR + " INNER JOIN GRUPY ON G.ID_GRUPY = U.ID_GRUPY WHERE U.ID_STANOWISKA = 4";
+ 
+                ResultSet rs = stat.executeQuery(query);
+                
+                while(rs.next()) {
+                    idLideraR = rs.getInt("ID_UZYTKOWNIKA");
+                    imieLideraR = rs.getString("IMIE");
+                    nazwiskoLideraR = rs.getString("NAZWISKO");
+                    nazwaGrupyLidera = rs.getString("NAZWA_GRUPY");
+                    
+                    Liderzy.add(new Lider(idLideraR, imieLideraR, nazwiskoLideraR, nazwaGrupyLidera)); 
+                }
+                
+                nazwaFirmyLidera = nazwaFirmyKierownika;
+               
+                System.out.println("Firma Lidera: "+nazwaFirmyLidera+" Imie: "+imieLideraR+" Nazwisko: " +nazwiskoLideraR);                    
+                
+                rs.close();
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #4");
+                
+                System.err.println(" nie można wykonac tego zapytania: GENERUJ RAPORT #4 " + e.getMessage());
+            }
+        
+        // pobierani liczby czlonkow grup pracujacych nad projektem
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT COUNT(ID_UZYTKOWNIKA) FROM UZYTKOWNICY WHERE ID_PROJEKTU = "+idProjektuR;
+                
+                ResultSet rs = stat.executeQuery(query);
+                
+                while(rs.isBeforeFirst()){
+                    liczbaCzlonkowGrup = rs.getInt(1) - 1;
+                    rs.next();
+                }
+                
+                rs.close();
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #5");
+                
+                System.err.println(" nie można wykonac tego zapytania: GENERUJ RAPORT #5 " + e.getMessage());
+            }
+        
+            JFileChooser chooser = new JFileChooser();
+            chooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home"), "Desktop"));
+            chooser.setDialogTitle("Wybierz lokalizacjÄ™");
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            chooser.setApproveButtonText("Zapisz");
+
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                JOptionPane.showMessageDialog(null, "Zapisano w: " + chooser.getSelectedFile());
+                elo =""+chooser.getSelectedFile();
+                
+                createPdf();
+                        
+            } else {
+               PokazAlert("Informacja","Błąd","Nie wybrano lokalizacji!");
+            }            
+        
+        
+      } catch (Exception e) {
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się stworzyć raportu ID: #6");
+                
+                System.err.println(" nie można wykonac GENERUJ RAPORT #6 " + e.getMessage());
+            } 
+    }
+    
+    
+    public void createPdf() {
+        Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+        
+        try {
+
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(elo+"/raport.pdf"));
+
+            document.open();
+
+            BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+            Font helvetica16=new Font(helvetica,12);
+            Font helvetica16x=new Font(helvetica,16);
+            
+            Paragraph dataUtworzenia = new Paragraph(new Chunk(""+dataUtworzeniaRaportu+"\n\n", helvetica16));
+            Paragraph raport = new Paragraph(new Chunk("RAPORT \n\n", helvetica16x));
+            Paragraph nazwaProjektu = new Paragraph(new Chunk("Projekt: " + nazwaProjektuR + "\n\n", helvetica16x));
+            Paragraph nazwaFirmyZl = new Paragraph(new Chunk("Zleceniodawca: " + nazwaFirmyZlecajacej, helvetica16));
+            Paragraph reprezentant = new Paragraph(new Chunk("Przedstawiciel zleceniodawcy: : " +imieReprezentant + " " + nazwiskoReprezentant + "\n\n", helvetica16));
+            Paragraph nazwaFirmy = new Paragraph(new Chunk("Zleceniobiorca: " +nazwaFirmyKierownika, helvetica16));
+            Paragraph zleceniobiorca = new Paragraph(new Chunk("Przedstawiciel zleceniobiorcy: " + imieZleceniobiorcyR + " " + nazwiskoZleceniobiorcyR + "\n\n", helvetica16));
+            Paragraph kierownik = new Paragraph(new Chunk("Kierownik Projektu: " + imieKierownikaR + " " + nazwiskoKierownikaR, helvetica16));
+            Paragraph dataStart = new Paragraph(new Chunk("Termin rozpoczęcia prac: " +dataStartR, helvetica16));
+            Paragraph dataEnd = new Paragraph(new Chunk("Termin ukończenia prac: " +dataEndR, helvetica16));
+            Paragraph koszt = new Paragraph(new Chunk("Koszt projektu: " +kosztProjektuR, helvetica16));
+            Paragraph status = new Paragraph(new Chunk("Status projektu: " +statusProjektuR + "\n\n", helvetica16));
+            Paragraph opis = new Paragraph(new Chunk("Opis projektu: " +opisProjektuR + "\n\n", helvetica16));
+            Paragraph liczbaGr = new Paragraph(new Chunk("Liczba grup: " + liczbaGrup + "       Liczba członkow: " + liczbaCzlonkowGrup + "        Liczba zadan: " + liczbaWszystkichZadan, helvetica16));
+            Paragraph LiczbaUZadan = new Paragraph(new Chunk("Liczba ukończonych zadań: " + liczbaUkonczonychZadan + "\n\n", helvetica16));
+            
+            Paragraph prowadzacy = new Paragraph(new Chunk("Prowadzący grup:"));
+            
+            dataUtworzenia.setAlignment(Element.ALIGN_RIGHT);
+            raport.setAlignment(Element.ALIGN_CENTER);
+            nazwaProjektu.setAlignment(Element.ALIGN_CENTER);
+            nazwaFirmyZl.setAlignment(Element.ALIGN_LEFT);
+            reprezentant.setAlignment(Element.ALIGN_LEFT);
+            nazwaFirmy.setAlignment(Element.ALIGN_LEFT);
+            zleceniobiorca.setAlignment(Element.ALIGN_LEFT);
+            kierownik.setAlignment(Element.ALIGN_LEFT);
+            dataStart.setAlignment(Element.ALIGN_LEFT);
+            dataEnd.setAlignment(Element.ALIGN_LEFT);
+            koszt.setAlignment(Element.ALIGN_LEFT);
+            status.setAlignment(Element.ALIGN_LEFT);
+            opis.setAlignment(Element.ALIGN_LEFT);
+            liczbaGr.setAlignment(Element.ALIGN_LEFT);
+            LiczbaUZadan.setAlignment(Element.ALIGN_LEFT);
+            prowadzacy.setAlignment(Element.ALIGN_LEFT);
+            
+            document.add(dataUtworzenia);
+            document.add(raport);
+            document.add(nazwaProjektu);
+            document.add(nazwaFirmyZl);
+            document.add(reprezentant);
+            document.add(nazwaFirmy);
+            document.add(zleceniobiorca);
+            document.add(kierownik);
+            document.add(dataStart);
+            document.add(dataEnd);
+
+            document.add(koszt);
+            document.add(status);
+            document.add(opis);
+            document.add(liczbaGr);
+            document.add(LiczbaUZadan);
+            document.add(prowadzacy);            
+            
+            int j = 1;
+            
+            while(j<Liderzy.size()) {
+                Paragraph lider = new Paragraph(new Chunk("Lider: " + Liderzy.get(j).imieLideraR + " " + Liderzy.get(j).nazwiskoLideraR + "     Nazwa grupy: " + Liderzy.get(j).nazwaGrupyLidera, helvetica16));
+                lider.setAlignment(Element.ALIGN_LEFT);
+                document.add(lider);
+                j++;
+            }
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+           
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd. Nie udało się utworzyć raportu ID: #7.");
+                
+             System.err.println(" nie można wykonac GENERUJ RAPORT #7 " + e.getMessage());
+        }
+        document.close();
+    }
+      
     
 }

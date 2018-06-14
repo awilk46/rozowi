@@ -21,22 +21,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="signPane" prefHeight="358.0" prefWidth="655.0" style="../Design.css" styleClass="anchorPanelLogowania" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_LogowaniaController">
+<AnchorPane id="AnchorPane" fx:id="signPane" prefHeight="358.0" prefWidth="655.0" styleClass="anchorPane" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_LogowaniaController">
    <children>
-      <AnchorPane layoutX="411.0" layoutY="26.0" prefHeight="307.0" prefWidth="220.0" style="../Design.css" styleClass="anchorPanelLogowania">
+      <AnchorPane layoutX="411.0" layoutY="26.0" prefHeight="307.0" prefWidth="220.0" styleClass="anchorPaneLogowaniaMini" stylesheets="@Design.css">
          <children>
-            <TextField fx:id="textfieldLogin" layoutX="17.0" layoutY="110.0" prefHeight="27.0" prefWidth="187.0" style="../Design.css" styleClass="textfieldLogowania" stylesheets="@Design.css">
+            <TextField fx:id="textfieldLogin" layoutX="17.0" layoutY="110.0" prefHeight="27.0" prefWidth="187.0" styleClass="textField" stylesheets="@Design.css">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></TextField>
-            <PasswordField fx:id="textfieldHaslo" layoutX="17.0" layoutY="162.0" prefHeight="27.0" prefWidth="187.0" style="../Design.css" styleClass="passwordfieldLogowania" stylesheets="@Design.css" />
-            <Button fx:id="buttonZaloguj" layoutX="17.0" layoutY="214.0" mnemonicParsing="false" onAction="#ActionButtonZaloguj" prefHeight="25.0" prefWidth="187.0" styleClass="buttonLogowania" stylesheets="@Design.css" text="Zaloguj" textFill="#514a53" />
-            <Label alignment="CENTER" contentDisplay="TOP" layoutX="71.0" layoutY="41.0" prefHeight="37.0" prefWidth="79.0" style="../Design.css" styleClass="labelLogowania" text="SIgn In" textFill="#514a53">
+            <PasswordField fx:id="textfieldHaslo" layoutX="17.0" layoutY="162.0" prefHeight="27.0" prefWidth="187.0" styleClass="textField" stylesheets="@Design.css" />
+            <Button fx:id="buttonZaloguj" layoutX="17.0" layoutY="214.0" mnemonicParsing="false" onAction="#ActionButtonZaloguj" prefHeight="25.0" prefWidth="187.0" stylesheets="@Design.css" text="Zaloguj" textFill="#514a53" />
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="49.0" layoutY="40.0" prefHeight="37.0" prefWidth="123.0" style="../Design.css" styleClass="labelLogowania" text="Panel Logowania" textFill="#514a53">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Hyperlink fx:id="hyperlinkForgotPassword" layoutX="60.0" layoutY="253.0" style="../Design.css" styleClass="hyperlinkLogowania" text="Forgot Password?" textAlignment="CENTER" textFill="#514a53" underline="true" />
+            <Hyperlink fx:id="hyperlinkForgotPassword" layoutX="60.0" layoutY="253.0" styleClass="hyperLink" stylesheets="@Design.css" text="Forgot Password?" textAlignment="CENTER" textFill="#514a53" underline="true" />
          </children>
       </AnchorPane>
       <ImageView cache="true" fitHeight="142.0" fitWidth="321.0" layoutX="52.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" style="../Design.css" styleClass="imageviewLogowania">
@@ -52,12 +52,10 @@
             </Lighting>
          </effect>
       </ImageView>
-      <Label alignment="CENTER" layoutX="78.0" layoutY="191.0" prefHeight="65.0" prefWidth="270.0" style="../Design.css" styleClass="label" text="Welcome to task manager">
+      <Label layoutX="54.0" layoutY="181.0" prefHeight="65.0" prefWidth="270.0" style="../Design.css" styleClass="label" text="Welcome to task manager">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="248.0" style="../Design.css" styleClass="label" text="You are not a TASK user? Click here for registration." />
-      <Button fx:id="buttonZarejestruj" layoutX="163.0" layoutY="297.0" mnemonicParsing="false" onAction="#ActionButtonZarejestruj" prefHeight="25.0" prefWidth="102.0" styleClass="buttonLogowania" stylesheets="@Design.css" text="Zarejestruj" textFill="#514a53" />
    </children>
 </AnchorPane>

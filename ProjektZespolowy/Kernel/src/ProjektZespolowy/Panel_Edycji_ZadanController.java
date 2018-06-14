@@ -18,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,18 +50,25 @@ public class Panel_Edycji_ZadanController implements Initializable {
     @FXML
     private ComboBox comboboxWybierzProjekt;
     
+    @FXML
     private ComboBox comboboxWybierzGrupe;
     
+    @FXML
     private ComboBox comboboxWybierzSprint;
     
+    @FXML
     private ComboBox comboboxWybierzPriorytet;
     
+    @FXML
     private ComboBox comboboxWybierzCzGrupy;
     
+    @FXML
     private TextField textfieldNazwaZadania;
     
+    @FXML
     private TextArea textareaOpisZadania;
     
+    @FXML
     private TextArea textareaKomentarzZadania;
     
     @FXML
@@ -102,34 +110,37 @@ public class Panel_Edycji_ZadanController implements Initializable {
     public void SprawdzKto() {
         
         try {
-            Connection connection = connect();
-            Statement stat = connection.createStatement();
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
 
-            query = "SELECT ID_STANOWISKA, ID_PROJEKTU, ID_GRUPY FROM UZYTKOWNICY WHERE ID_UZYTKOWNIKA ="+getZalogowany();
+                query = "SELECT ID_STANOWISKA, ID_PROJEKTU, ID_GRUPY FROM UZYTKOWNICY WHERE ID_UZYTKOWNIKA ="+getZalogowany();
 
-            ResultSet rs = stat.executeQuery(query);
+                ResultSet rs = stat.executeQuery(query);
 
-            idStanowiska = rs.getInt("ID_STANOWISKA");
-            idProjektu = rs.getInt("ID_PROJEKTU");
-            idGrupy = rs.getInt("ID_GRUPY");
+                idStanowiska = rs.getInt("ID_STANOWISKA");
+                idProjektu = rs.getInt("ID_PROJEKTU");
+                idGrupy = rs.getInt("ID_GRUPY");
 
-            switch(idStanowiska) {
-                case 3:
-                    comboboxWybierzProjekt.setDisable(false);
-                    comboboxWybierzGrupe.setDisable(false);
-                    break;
-                case 4:
-                    comboboxWybierzProjekt.setDisable(true);
-                    comboboxWybierzGrupe.setDisable(true);
-                    break;
-                }
-        
-            stat.close();
-            connection.commit();
-            connection.close();
+                switch(idStanowiska) {
+                    case 3:
+                        comboboxWybierzProjekt.setDisable(false);
+                        comboboxWybierzGrupe.setDisable(false);
+                        break;
+                    case 4:
+                        comboboxWybierzProjekt.setDisable(true);
+                        comboboxWybierzGrupe.setDisable(true);
+                        break;
+                    }
+
+                stat.close();
+                connection.commit();
+                connection.close();
                 
         } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ sprawdzkto 1" + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. ID: #SK1 ");
+            
+            System.err.println(" nie można wykonac tego zapytania: SPRAWDZ KTO" + e.getMessage());
         }
         
         try {
@@ -155,7 +166,10 @@ public class Panel_Edycji_ZadanController implements Initializable {
             connection.commit();
             connection.close();
         } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WCZYTAJ sprawdzkto 2" + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. ID: #SK2 ");
+            
+            System.err.println(" nie można wykonac tego zapytania: WCZYTAJ sprawdzkto 2" + e.getMessage());
         }
     }
     
@@ -249,6 +263,9 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać pracownika ID: CZGRUPY");
+                
                 System.err.println(" nie można wykonac tego zapytania: WYBIERZ CZ GRUPY" + e.getMessage());
             }
     }
@@ -263,6 +280,7 @@ public class Panel_Edycji_ZadanController implements Initializable {
         
         nazwaSprintu = (String) comboboxWybierzSprint.getSelectionModel().getSelectedItem();
         System.out.println("Wybrana NAZWA SPRINTU: "+nazwaSprintu);
+        
         try {
 
             Connection connection = connect();
@@ -282,6 +300,9 @@ public class Panel_Edycji_ZadanController implements Initializable {
             System.out.println("Wybrane ID SPRINTU: "+idSprintu);
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu");
+            
             System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT " + e.getMessage());
         } 
     }
@@ -314,6 +335,9 @@ public class Panel_Edycji_ZadanController implements Initializable {
             WczytaniePracownikow();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy");
+            
             System.err.println(" nie można wykonac tego zapytania:  WYBIERZ GRUPE" + e.getMessage());
         }
     }
@@ -348,6 +372,9 @@ public class Panel_Edycji_ZadanController implements Initializable {
             WczytajSprinty();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu");
+            
             System.err.println(" nie można wykonac tego zapytania: WYBIERZ PROJEKT" + e.getMessage());
         }        
         
@@ -375,29 +402,40 @@ public class Panel_Edycji_ZadanController implements Initializable {
         try {
 
                 Connection connection = connect();
-                Statement stat = connection.createStatement();
-                
-                query = "UPDATE ZADANIA SET NAZWA_ZADANIA ='" + nazwaZadania + "', PRIORYTET = '" + wybranyPriorytet +"', ID_PRZYPISANEGO = " + idPrzypisanego +", DATA_AKTUALIZACJI = '" + dataAktualizacji + "', OPIS = '" + opisZadania + "', KOMENTARZ = '" + komentarzZadania + "', ID_SPRINTU = " + idSprintu + " WHERE ID_ZADANIA =" + getWybraneZadanie() + "";
-            
-                stat.executeUpdate(query);
-                
-                //comboboxWybierzProjekt.getItems().clear();
-                //comboboxWybierzGrupe.getItems().clear();
-                
+//                Statement stat = connection.createStatement();
+//                
+//                query = "UPDATE ZADANIA SET NAZWA_ZADANIA ='" + nazwaZadania + "', PRIORYTET = '" + wybranyPriorytet +"', ID_PRZYPISANEGO = " + idPrzypisanego +", DATA_AKTUALIZACJI = '" + dataAktualizacji + "', OPIS = '" + opisZadania + "', KOMENTARZ = '" + komentarzZadania + "', ID_SPRINTU = " + idSprintu + " WHERE ID_ZADANIA =" + getWybraneZadanie() + "";
+//            
+//                stat.executeUpdate(query);
+//                
+//                //comboboxWybierzProjekt.getItems().clear();
+//                //comboboxWybierzGrupe.getItems().clear();
+//                
+//                stat.close();
+
+                query = "UPDATE ZADANIA SET NAZWA_ZADANIA = ?, PRIORYTET = ?, ID_PRZYPISANEGO = ?, DATA_AKTUALIZACJI = ?, OPIS = ?, KOMENTARZ = ?, ID_SPRINTU = ? WHERE ID_ZADANIA =" + getWybraneZadanie() + "";
+                PreparedStatement stat = connection.prepareStatement(query);
+                stat.setString(1, nazwaZadania);
+                stat.setString(2, wybranyPriorytet);
+                stat.setInt(3, idPrzypisanego);
+                stat.setString(4, dataAktualizacji);
+                stat.setString(5, opisZadania);
+                stat.setString(6, komentarzZadania);
+                stat.setInt(7, idSprintu);
+
+                stat.executeUpdate();
+
                 stat.close();
+                
                 connection.commit();
                 connection.close();
                 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zaaktualizowano zadanie!!");
-
-                alert.showAndWait();                
-                
-                //JOptionPane.showMessageDialog(null, "Zaktualizowano Zadanie", "Aktualizacja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Zaaktualizowano zadanie!");
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się zaaktualizować zadania");
+                
                 System.err.println(" nie można wykonac tego zapytania: AKTUALIZUJ ZADANIE" + e.getMessage());
             }
     }
@@ -423,6 +461,9 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać priorytetów");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
@@ -459,12 +500,16 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać pracowników");
+                
                 System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
             }
     }
 
 
     public void WczytajProjekty() {
+        
         try {
 
                 Connection connection = connect();
@@ -483,12 +528,16 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
 
 
     public void WczytajGrupy() {
+        
         try {
 
                 Connection connection = connect();
@@ -507,12 +556,16 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać grup");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
 
 
     public void WczytajSprinty() {
+        
         try {
 
                 Connection connection = connect();
@@ -531,7 +584,23 @@ public class Panel_Edycji_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. nie udało się wczytać sprintów");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }     
+    
+    
 }

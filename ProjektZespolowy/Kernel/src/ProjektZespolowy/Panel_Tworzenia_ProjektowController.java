@@ -111,7 +111,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
     
     public void WczytanieFirm(){
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
@@ -133,6 +133,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać firmy.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 1" + e.getMessage());
             }
     }
@@ -140,7 +143,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
     
     public void WczytanieWolnychKierownikow(){
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement(); //INNER JOIN PROJEKTY ON UZYTKOWNICY.ID_UZYTKOWNIKA != PROJEKTY.ID_KIEROWNIKA
@@ -162,6 +165,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać kierowników.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
             }
     }    
@@ -219,7 +225,7 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
         String loginPrzedstawiciela = textfieldLoginPrzedstawiciela.getText();
         String hasloPrzedstawiciela = passwordfieldHasloPrzedstawiciela.getText();
 
-        if(!nazwaFirmy.isEmpty() || !adresFirmy.isEmpty() || !imiePrzedstawiciela.isEmpty() || !nazwiskoPrzedstawiciela.isEmpty() || !opisFirmy.isEmpty() || !email.isEmpty() || !loginPrzedstawiciela.isEmpty() || !hasloPrzedstawiciela.isEmpty()){
+        if(nazwiskoPrzedstawiciela.matches("^[a-zA-Z]+$") || imiePrzedstawiciela.matches("^[a-zA-Z]+$") || !nazwaFirmy.isEmpty() || !adresFirmy.isEmpty() || !imiePrzedstawiciela.isEmpty() || !nazwiskoPrzedstawiciela.isEmpty() || !opisFirmy.isEmpty() || !email.isEmpty() || !loginPrzedstawiciela.isEmpty() || !hasloPrzedstawiciela.isEmpty()){
             try {
 
                 Connection connection = connect();
@@ -254,19 +260,17 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 textfieldLoginPrzedstawiciela.clear();
                 passwordfieldHasloPrzedstawiciela.clear();
                 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Dodałeś firmę do bazy danych");
-
-                alert.showAndWait();                
-                
-                //JOptionPane.showMessageDialog(null, "Dodałeś firmę do bazy danych", "Stworzenie Firmy", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Dodałeś firmę do bazy danych");
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się dodać firmy.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 3" + e.getMessage());
             }
-        }
+        } else {
+                    PokazAlert("Informacja","Błąd","Niestety źle uzupełniłeś pola lub użyłeś niedozwolonych znaków w polu IMIE i NAZWISKO"); 
+            }
         
         WczytanieFirm();
     }
@@ -318,6 +322,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się dodać projektu.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 4" + e.getMessage());
             }        
         
@@ -336,6 +343,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się dodać projektu.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 5" + e.getMessage());
             }
 
@@ -357,15 +367,8 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 stat.close();
                 connection.commit();
                 connection.close();
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Utworzono projekt!");
 
-                alert.showAndWait();                
-                
-                //JOptionPane.showMessageDialog(null, "Utworzono Projekt", "Tworzenie Projektu", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Utworzono projekt!");
                 
                 textfieldNazwaProjektu.clear();
                 textfieldKoszt.clear();
@@ -378,6 +381,9 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się dodać projektu.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 5" + e.getMessage());
             }
         
@@ -420,9 +426,23 @@ public class Panel_Tworzenia_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać kierownika.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
-            }       
-        
+            }
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }
+    
     
 }

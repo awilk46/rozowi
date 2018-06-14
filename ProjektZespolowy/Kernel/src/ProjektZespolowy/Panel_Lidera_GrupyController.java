@@ -248,6 +248,7 @@ private Label labelToDo1;
 @FXML
 private Button buttonZapiszZmianyZadanie;
 
+
 @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -357,7 +358,10 @@ private Button buttonZapiszZmianyZadanie;
             WczytajBarSprint();
             
         } catch (SQLException e) {
-            System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT 2" + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu");
+            
+            System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT " + e.getMessage());
         }   
     }
     
@@ -416,7 +420,10 @@ private Button buttonZapiszZmianyZadanie;
                 connection.close();            
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT 1" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać paska postępu sprintu");
+                
+                System.err.println(" nie można wykonac tego zapytania: WczytajBarSprint " + e.getMessage());
             }
     }    
     
@@ -553,29 +560,37 @@ private Button buttonZapiszZmianyZadanie;
                         
                         try {
 
-                        Connection connection = connect();
-                        Statement stat = connection.createStatement();
+                                Connection connection = connect();
+                                Statement stat = connection.createStatement();
 
-                        String query2 = "UPDATE ZADANIA SET STATUS = " + wybranyStatus + " WHERE ID_ZADANIA =" + wybraneZadanie +"";
+                                String query2 = "UPDATE ZADANIA SET STATUS = " + wybranyStatus + " WHERE ID_ZADANIA =" + wybraneZadanie +"";
 
-                        stat.executeUpdate(query2);
+                                stat.executeUpdate(query2);
 
-                        System.out.println("JESTEM W PRESSED I WYKONAŁEM");
+                                System.out.println("JESTEM W PRESSED I WYKONAŁEM");
 
-                        stat.close();
-                        connection.commit();
-                        connection.close();
+                                stat.close();
+                                connection.commit();
+                                connection.close();
 
                         } catch (SQLException e) {
-                             System.err.println(" nie można wykonac tego zapytania: UPDATE ZADANIA STATUS" + e.getMessage());
-                            }
+                            
+                            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Błąd ID: UPDATE ZAD STAT");
+                            
+                            System.err.println(" nie można wykonac tego zapytania: UPDATE ZADANIA STATUS" + e.getMessage());
+                        }
                         
                         try {
-                            WczytajZadania();
-                            System.out.println("JESTEM W WCZYTAJ I WYKONAŁEM");
+                                WczytajZadania();
+                                System.out.println("JESTEM W WCZYTAJ I WYKONAŁEM");
+                                
                         } catch (SQLException ex) {
+                            
+                            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać zadań.");
+                            
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                        }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -583,7 +598,9 @@ private Button buttonZapiszZmianyZadanie;
                         klikPaneTesting = 0;
                         klikPaneReady = 0;
                         klikPane = 0;
+                        
                         WczytajBarSprint();
+                        
                         System.out.println("KLIK PANEL PO kasacji : "+klikPane);
                     }}});
             
@@ -626,29 +643,36 @@ private Button buttonZapiszZmianyZadanie;
                         
                         try {
 
-                        Connection connection = connect();
-                        Statement stat = connection.createStatement();
+                                Connection connection = connect();
+                                Statement stat = connection.createStatement();
 
-                        String query2 = "UPDATE ZADANIA SET STATUS = " + wybranyStatus + " WHERE ID_ZADANIA =" + wybraneZadanie +"";
+                                String query2 = "UPDATE ZADANIA SET STATUS = " + wybranyStatus + " WHERE ID_ZADANIA =" + wybraneZadanie +"";
 
-                        stat.executeUpdate(query2);
+                                stat.executeUpdate(query2);
 
-                        System.out.println("JESTEM W PRESSED I WYKONAŁEM");
+                                System.out.println("JESTEM W PRESSED I WYKONAŁEM");
 
-                        stat.close();
-                        connection.commit();
-                        connection.close();
+                                stat.close();
+                                connection.commit();
+                                connection.close();
 
                         } catch (SQLException e) {
-                             System.err.println(" nie można wykonac tego zapytania: UPDATE ZADANIA STATUS" + e.getMessage());
-                            }
+                            
+                            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Błąd ID: PRESSED");
+                            
+                            System.err.println(" nie można wykonac tego zapytania: UPDATE ZADANIA STATUS" + e.getMessage());
+                        }
                         
                         try {
+                            
                             WczytajZadania();
                             System.out.println("JESTEM W WCZYTAJ I WYKONAŁEM");
+                            
                         } catch (SQLException ex) {
+                            
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                        }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -713,15 +737,19 @@ private Button buttonZapiszZmianyZadanie;
                         connection.close();
 
                         } catch (SQLException e) {
+                            
                              System.err.println(" nie można wykonac tego zapytania: UPDATE ZADANIA STATUS" + e.getMessage());
-                            }
+                        }
                         
                         try {
-                            WczytajZadania();
-                            System.out.println("JESTEM W WCZYTAJ I WYKONAŁEM");
+                                WczytajZadania();
+                                System.out.println("JESTEM W WCZYTAJ I WYKONAŁEM");
+                            
                         } catch (SQLException ex) {
+                            
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                        }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -1003,6 +1031,9 @@ private Button buttonZapiszZmianyZadanie;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać sprintów ID: #1");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ ID PROJEKTU" + e.getMessage());
             }        
         
@@ -1024,6 +1055,9 @@ private Button buttonZapiszZmianyZadanie;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać sprintów ID: #2");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ SPRINTY" + e.getMessage());
             }        
     }     
@@ -1070,6 +1104,9 @@ private Button buttonZapiszZmianyZadanie;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu grupy ID: #1");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 1" + e.getMessage());
             }        
         
@@ -1108,6 +1145,9 @@ private Button buttonZapiszZmianyZadanie;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać wiadomości na chacie grupy");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 2" + e.getMessage());
             }        
     }
@@ -1146,6 +1186,9 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu projektu ID: #1");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 1" + e.getMessage());
             }        
         
@@ -1184,6 +1227,9 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać wiadomości na chacie projektu");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 2" + e.getMessage());
             }        
     }    
@@ -1208,15 +1254,7 @@ public void WczytajChatProjektu(int czyscProjektu) {
             stage.show();     
         }
         else {
-            
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Nie wybrano zadania!!");
-
-                alert.showAndWait();            
-            
-            //JOptionPane.showMessageDialog(null, "Nie wybrano zadania", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Nie wybrano zadania!");
         }
     }
 
@@ -1253,6 +1291,9 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 }
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wysłać wiadomości na chacie");
+                
                 System.err.println(" nie można wykonac tego zapytania: CHAT GRUPY WYŚLIJ" + e.getMessage());
             }
     }
@@ -1301,6 +1342,9 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 }
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wysłać wiadomości na chatcie");
+                
                 System.err.println(" nie można wykonac tego zapytania: CHAT PROJEKTU WYŚLIJ" + e.getMessage());
             }   
     }
@@ -1338,18 +1382,14 @@ public void WczytajChatProjektu(int czyscProjektu) {
                 connection.commit();
                 connection.close();
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zapisano zmiany w zadaniu!");
-
-                alert.showAndWait();                
-                
-            //JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Zapisano zmiany w zadaniu!");
             
             WczytajZadania();
             
         } catch (SQLException e) {
+            
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się zapisać zmian w zadaniu.");
+            
                 System.err.println(" nie można wykonac tego zapytania: ZAPISZ ZMIANY ZADANIE " + e.getMessage());
             }
     }
@@ -1358,6 +1398,17 @@ public void WczytajChatProjektu(int czyscProjektu) {
     public static int getWybraneZadanie() {
         return wybraneZadanie;
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }  
 
     
 }

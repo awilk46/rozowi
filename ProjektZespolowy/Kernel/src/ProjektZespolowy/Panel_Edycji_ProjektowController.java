@@ -11,6 +11,7 @@ import static ProjektZespolowy.Polaczenie.connect;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -70,6 +71,7 @@ public class Panel_Edycji_ProjektowController implements Initializable {
     
     @FXML
     private DatePicker datepickerDataEnd;
+    
     @FXML
     private Button buttonWroc;
     
@@ -109,7 +111,10 @@ public class Panel_Edycji_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać kierowników");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ KIEROWNIKÓW: " + e.getMessage());
             }
     }
 
@@ -135,6 +140,9 @@ public class Panel_Edycji_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
                 System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
             }        
     }
@@ -176,7 +184,10 @@ public class Panel_Edycji_ProjektowController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać kierownika");
+                
+                System.err.println(" nie można wykonac tego zapytania WYBIERZ KIEROWNIKA: " + e.getMessage());
             }       
         
     }
@@ -237,6 +248,9 @@ public class Panel_Edycji_ProjektowController implements Initializable {
             textareaKomentarzProjektu.setText(komentarzProjektu);
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu");
+            
             System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT: " + e.getMessage());
         }
     }
@@ -271,27 +285,37 @@ public class Panel_Edycji_ProjektowController implements Initializable {
         try {
 
                 Connection connection = connect();
-                Statement stat = connection.createStatement();
-                
-                query = "UPDATE PROJEKTY SET NAZWA_PROJEKTU ='" + nazwaProjektu + "', DATA_END = '" + dataEnd +"', KOSZT_PROJEKTU = " + kosztProjektu +", OPIS_PROJEKTU = '" + opisProjektu + "', KOMENTARZ_ZLECAJACEGO = '" + komentarzProjektu + "' WHERE ID_PROJEKTU =" + idProjektu + "";
-            
-                stat.executeUpdate(query);
-                
+//                Statement stat = connection.createStatement();
+//                
+//                query = "UPDATE PROJEKTY SET NAZWA_PROJEKTU ='" + nazwaProjektu + "', DATA_END = '" + dataEnd +"', KOSZT_PROJEKTU = " + kosztProjektu +", OPIS_PROJEKTU = '" + opisProjektu + "', KOMENTARZ_ZLECAJACEGO = '" + komentarzProjektu + "' WHERE ID_PROJEKTU =" + idProjektu + "";
+//            
+//                stat.executeUpdate(query);
+//                
+//                stat.close();
+
+                query = "UPDATE PROJEKTY SET NAZWA_PROJEKTU = ?, DATA_END = ?, KOSZT_PROJEKTU = ?, OPIS_PROJEKTU = ?, KOMENTARZ_ZLECAJACEGO = ? WHERE ID_PROJEKTU = ?";
+                PreparedStatement stat = connection.prepareStatement(query);
+                stat.setString(1, nazwaProjektu);
+                stat.setString(2, dataEnd);
+                stat.setString(3, kosztProjektu);
+                stat.setString(4, opisProjektu);
+                stat.setString(5, komentarzProjektu);
+                stat.setInt(6, idProjektu);
+
+                stat.executeUpdate();
+
                 stat.close();
+
                 connection.commit();
                 connection.close();
                 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zaaktualizowano Zadanie!!");
-
-                alert.showAndWait();                
-                
-                //JOptionPane.showMessageDialog(null, "Zaktualizowano Zadanie", "Aktualizacja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Zaaktualizowano Projekt!");
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: AKTUALIZUJ ZADANIE" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się zaaktualizować projektu");
+                
+                System.err.println(" nie można wykonac tego zapytania: AKTUALIZUJ PROJEKT" + e.getMessage());
             }        
         
     }    
@@ -313,5 +337,17 @@ public class Panel_Edycji_ProjektowController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }    
+    
     
 }

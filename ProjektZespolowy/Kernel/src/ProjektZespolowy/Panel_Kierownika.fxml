@@ -68,5 +68,7 @@
       <ProgressBar fx:id="progresbarGrupa" layoutX="650.0" layoutY="138.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
       <Label layoutX="686.0" layoutY="110.0" stylesheets="@Design.css" text="Progres zadań w grupie:" />
       <Label fx:id="labelLiczbaUZadanGrupaSprint" layoutX="1127.0" layoutY="184.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Button fx:id="buttonZarejestrujUzytkownika" layoutX="669.0" layoutY="33.0" mnemonicParsing="false" onAction="#ActionButtonZarejestrujUzytkownika" stylesheets="@Design.css" text="Zarejestruj Użytkownika" />
+      <Button fx:id="buttonGenerujRaport" layoutX="74.0" layoutY="159.0" mnemonicParsing="false" onAction="#ActionButtonGenerujRaport" stylesheets="@Design.css" text="Generuj Raport" />
    </children>
 </AnchorPane>

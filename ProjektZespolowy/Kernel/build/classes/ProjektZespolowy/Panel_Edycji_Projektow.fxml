@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="650.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_Edycji_ProjektowController">
+   <children>
+      <TextField fx:id="textfieldNazwaProjektu" layoutX="134.0" layoutY="62.0" prefHeight="25.0" prefWidth="180.0" styleClass="textField" stylesheets="@Design.css" />
+      <TextArea fx:id="textareaOpisProjektu" layoutX="44.0" layoutY="179.0" prefHeight="200.0" prefWidth="294.0" styleClass="textArea" stylesheets="@Design.css" />
+      <ComboBox fx:id="comboboxWybierzKierownika" layoutX="144.0" layoutY="107.0" onAction="#ActionComboBoxWybierzKierownika" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="41.0" layoutY="66.0" stylesheets="@Design.css" text="Nazwa projektu:" />
+      <Label layoutX="36.0" layoutY="111.0" stylesheets="@Design.css" text="Wybierz kierownika" />
+      <Label layoutX="51.0" layoutY="143.0" stylesheets="@Design.css" text="Opis projektu:" />
+      <Label layoutX="50.0" layoutY="390.0" stylesheets="@Design.css" text="Komentarz do projektu" />
+      <TextArea fx:id="textareaKomentarzProjektu" layoutX="43.0" layoutY="418.0" prefHeight="181.0" prefWidth="294.0" styleClass="textArea" stylesheets="@Design.css" />
+      <Label layoutX="44.0" layoutY="24.0" stylesheets="@Design.css" text="Wybierz projekt:" />
+      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="142.0" layoutY="20.0" onAction="#ActionComboBoxWybierzProjekt" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Button fx:id="buttonAktualizujProjekt" layoutX="387.0" layoutY="29.0" mnemonicParsing="false" onAction="#ActionAktualizujProjekt" stylesheets="@Design.css" text="Aktualizuj Projekt" />
+      <Button fx:id="buttonWroc" layoutX="525.0" layoutY="29.0" mnemonicParsing="false" onAction="#ActionWroc" stylesheets="@Design.css" text="Wróć" />
+      <Label layoutX="348.0" layoutY="152.0" stylesheets="@Design.css" text="Koszt:" />
+      <Label layoutX="364.0" layoutY="84.0" stylesheets="@Design.css" text="Termin Ukończenia:" />
+      <TextField fx:id="textfieldKoszt" layoutX="405.0" layoutY="147.0" prefHeight="25.0" prefWidth="110.0" styleClass="textField" stylesheets="@Design.css" />
+      <DatePicker fx:id="datepickerDataEnd" layoutX="364.0" layoutY="106.0" onAction="#ActionDatePickerTerminEnd" prefHeight="25.0" prefWidth="149.0" styleClass="dataPicker" stylesheets="@Design.css" />
+   </children>
+   <stylesheets>
+      <URL value="@Design.css" />
+   </stylesheets>
+</AnchorPane>

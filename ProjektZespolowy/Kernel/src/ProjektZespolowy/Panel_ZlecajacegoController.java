@@ -5,6 +5,7 @@
  */
 package ProjektZespolowy;
 
+import static ProjektZespolowy.Panel_Lidera_GrupyController.getWybraneZadanie;
 import static ProjektZespolowy.Polaczenie.connect;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +30,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import static ProjektZespolowy.Panel_LogowaniaController.getFirmaZalogowanego;
+import java.sql.PreparedStatement;
+import javafx.scene.control.Alert;
+        
 /**
  * FXML Controller class
  *
@@ -82,17 +86,20 @@ public class Panel_ZlecajacegoController implements Initializable {
         
         WczytanieProjektow();
         
+        textareaOpisProjektu.setEditable(false);
+        textareaKomentarzeProjektu.setEditable(false);
+        
     }
     
     
     public void WczytanieProjektow(){
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
                 
-                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY";
+                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY WHERE ID_FIRMY_ZLECAJACEJ ="+getFirmaZalogowanego();
                 
                 ResultSet rs = stat.executeQuery(query);
                 
@@ -107,6 +114,9 @@ public class Panel_ZlecajacegoController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych. Nie udało się wczytać projektów.");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }
     }    
@@ -138,7 +148,12 @@ public class Panel_ZlecajacegoController implements Initializable {
         Okno(nazwaOkna);
     }
 
+    
     String nazwaProjektu;
+    int liczbaGrup;
+    double liczbaZadan;
+    double liczbaUZadan;
+    
     
     @FXML
     private void ActionComboBoxWybierzProjekt(ActionEvent event) {
@@ -169,13 +184,15 @@ public class Panel_ZlecajacegoController implements Initializable {
             
             System.out.println("RS PRZY LICZGR "+rs.getInt("LICZGR"));
             
-            labelLiczbaGrup.setText(String.valueOf(rs.getInt("LICZGR")));
+            liczbaGrup = rs.getInt("LICZGR");
+            
+            labelLiczbaGrup.setText(String.valueOf(liczbaGrup));
             
             query = "SELECT IMIE, NAZWISKO FROM UZYTKOWNICY U INNER JOIN PROJEKTY P ON U.ID_UZYTKOWNIKA = P.ID_KIEROWNIKA";
             
             rs = stat.executeQuery(query);            
             
-            labelKierownikProjektu.setText(rs.getString("IMIE") + "&nbps" + rs.getString("NAZWISKO"));
+            labelKierownikProjektu.setText(rs.getString("IMIE") + " " + rs.getString("NAZWISKO"));
             
             query = "SELECT COUNT(ID_ZADANIA) AS LICZZAD FROM ZADANIA WHERE ID_PROJEKTU = '" + idProjektu + "'";
             
@@ -183,21 +200,30 @@ public class Panel_ZlecajacegoController implements Initializable {
             
             System.out.println("RS PRZY LICZZAD "+rs.getInt("LICZZAD"));
             
-            labelLiczbaZadanProjekt.setText(String.valueOf(rs.getInt("LICZZAD")));
+            liczbaZadan = rs.getInt("LICZZAD");
+            
+            labelLiczbaZadanProjekt.setText(String.valueOf(liczbaZadan));
 
-            query = "SELECT COUNT(ID_ZADANIA) AS LICZZADUK FROM ZADANIA WHERE ID_PROJEKTU = '" + idProjektu + "' AND STATUS != 'UKONCZONY'";
+            query = "SELECT COUNT(ID_ZADANIA) AS LICZZADUK FROM ZADANIA WHERE ID_PROJEKTU = '" + idProjektu + "' AND STATUS != 4";
             
             rs = stat.executeQuery(query);
             
             System.out.println("RS PRZY LICZZADUK "+rs.getInt("LICZZADUK"));
             
-            labelLiczbaZadanUProjekt.setText(String.valueOf(rs.getInt("LICZZADUK")));            
+            liczbaUZadan = rs.getInt("LICZZADUK");
+            
+            labelLiczbaZadanUProjekt.setText(String.valueOf(liczbaUZadan));      
+            
+            progresbarProjekt.setProgress(liczbaUZadan/liczbaZadan);
             
             stat.close();
             connection.commit();
             connection.close();
 
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych. Nie udało się wybrać projektu");
+            
             System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
         }        
         
@@ -225,10 +251,19 @@ public class Panel_ZlecajacegoController implements Initializable {
             ResultSet rs = stat.executeQuery(query);
            
             nowyKomentarz = rs.getString("KOMENTARZ_ZLECAJACEGO") + dataKomentarza + "\n" + textareaNowyKomentarzProjektu.getText() + "\n\n";
-            
-            query = "UPDATE PROJEKTY SET KOMENTARZ_ZLECAJACEGO = '" + nowyKomentarz + "' WHERE ID_PROJEKTU = '" + idProjektu + "'";
-            
-            stat.executeUpdate(query);
+//            
+//            query = "UPDATE PROJEKTY SET KOMENTARZ_ZLECAJACEGO = '" + nowyKomentarz + "' WHERE ID_PROJEKTU = '" + idProjektu + "'";
+//            
+//            stat.executeUpdate(query);
+
+            query = "UPDATE PROJEKTY SET KOMENTARZ_ZLECAJACEGO = ? WHERE ID_PROJEKTU = ?";
+            PreparedStatement stat1 = connection.prepareStatement(query);
+            stat1.setString(1, nowyKomentarz);
+            stat1.setInt(2, idProjektu);
+
+            stat1.executeUpdate();
+
+            stat1.close();            
 
             query = "SELECT KOMENTARZ_ZLECAJACEGO FROM PROJEKTY WHERE ID_PROJEKTU = '" + idProjektu +"'";
             
@@ -243,9 +278,24 @@ public class Panel_ZlecajacegoController implements Initializable {
             connection.close();
 
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych. Nie udało się dodać komentarza.");
+            
             System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
         }        
         
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }
+    
     
 }

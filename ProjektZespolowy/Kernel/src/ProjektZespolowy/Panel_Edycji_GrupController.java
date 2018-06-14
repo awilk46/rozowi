@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,6 +36,9 @@ import javafx.stage.Stage;
  * FXML Controller class
  *
  * @author MaRkOs
+ * 
+ * Klasa umożliwia przeprowadzenie edycji grup, informacje o niej oraz o jej składzie osobowym
+ * 
  */
 
 public class Panel_Edycji_GrupController implements Initializable {
@@ -76,6 +80,17 @@ public class Panel_Edycji_GrupController implements Initializable {
     @FXML
     private ListView listviewDodani;
     
+    /**
+     * 
+     * W pierwszej kolejności wczytujemy projekty
+     * następnei wczytujemy wolnych liderów, 
+     * czyli liderów nie przypisanych do żadnej grupy
+     * 
+     * kolejno wczytujemy pracowników nie przypisanych do żadnego projektu i grupy
+     * 
+     * @param url
+     * @param rb 
+     */
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,6 +134,11 @@ public class Panel_Edycji_GrupController implements Initializable {
     
     String query;
     
+    /**
+     *
+     * Zostają pobrane projekty i umieszczone w comboboxie
+     * 
+     */
     
     public void WczytajProjekty() {
         try {
@@ -139,10 +159,19 @@ public class Panel_Edycji_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
             }        
     }    
     
+    
+     /**
+     *
+     * Zostają pobrani wolni liderzy i umieszczeni w comboboxie
+     * 
+     */
     
     public void WczytajWolnychLiderow(){
         
@@ -168,10 +197,19 @@ public class Panel_Edycji_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać liderów");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ LIDERÓW: " + e.getMessage());
             }
     }    
     
+    
+     /**
+     *
+     * Zostają pobrani wolni pracownicy i umieszczeni w comboboxie
+     * 
+     */
     
     public void WczytajWolnychPracownikow(){
         
@@ -197,11 +235,20 @@ public class Panel_Edycji_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać pracowników");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ PRACOWNIKOW: " + e.getMessage());
             }
     }
 
 
+     /**
+     *
+     * Zostają wczytane grupy i umieszczone w comboboxie
+     * 
+     */
+    
     public void WczytajGrupy() {
         
         comboboxWybierzGrupe.getItems().clear();
@@ -225,7 +272,10 @@ public class Panel_Edycji_GrupController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać grup");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ GRUPY: " + e.getMessage());
             }        
     }    
     
@@ -234,6 +284,13 @@ public class Panel_Edycji_GrupController implements Initializable {
     int idProjektu;
     
 
+    /**
+     *
+     * Po wybraniu projektu, pobierane jest ID projektu
+     * 
+     * @param event 
+     */
+    
     @FXML
     private void ActionComboBoxWybierzProjekt(ActionEvent event) {
         
@@ -262,22 +319,26 @@ public class Panel_Edycji_GrupController implements Initializable {
             WczytajGrupy();
 
         } catch (SQLException e) {
-            System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać projektu");
+            
+            System.err.println(" nie można wykonac tego zapytania WYBIERZ PROJEKT: " + e.getMessage());
         }        
     }
     
     
+    /**
+     * 
+     * po kliknięciu przycisku AKTUALIZUJ GRUPE pojawia się okno dialogowe
+     * potwierdzające dokonaną akcję
+     * 
+     * @param event 
+     */
+    
     @FXML
     private void ActionAktualizujGrupe(ActionEvent event) {
         
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zaaktualizowano Grupę!");
-
-                alert.showAndWait();
-        
-        //JOptionPane.showMessageDialog(null, "Zaaktualizowano Grupę", "Aktualizacja Grupy", JOptionPane.INFORMATION_MESSAGE);
+        PokazAlert("Informacja","Potwierdzenie","Zaaktualizowano Grupę!");
     }
     
     
@@ -285,11 +346,24 @@ String aktualnyLiderNazwisko;
 String aktualnyLiderImie;    
 
 
+    /**
+     * 
+     * Po wybraniu grupy pobierane są wszystkie informacje o grupie
+     * w tym informacje o liderze oraz każdym członku grupy
+     * 
+     * Informacje zostają dodane w odpowiednie pola oraz listy
+     * 
+     * @param event 
+     */
+
     @FXML
     private void ActionComboBoxWybierzGrupe(ActionEvent event) {
         
         nazwaGrupy = (String) comboboxWybierzGrupe.getSelectionModel().getSelectedItem();
-        
+            
+        wybraniPracownicy.clear();
+        listviewDodani.getItems().clear();
+                
         try {
 
             Connection connection = connect();
@@ -323,7 +397,7 @@ String aktualnyLiderImie;
             while(rs.next()){
                 wybraniPracownicy.add(rs.getString("IMIE") + " " + rs.getString("NAZWISKO"));
             }
-            
+
             listviewDodani.setItems(wybraniPracownicy);
             
 //            wybraniPracownicy.add(nazwaWybranegoPracownika);
@@ -340,7 +414,10 @@ String aktualnyLiderImie;
             comboboxWybierzLidera.setValue(aktualnyLiderImie + " " + aktualnyLiderNazwisko);
             
         } catch (SQLException e) {
-            System.err.println(" nie można wykonac tego zapytania:  WYBIERZ GRUPE" + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać grupy");
+            
+            System.err.println(" nie można wykonac tego zapytania WYBIERZ GRUPE: " + e.getMessage());
         }
     }
     
@@ -372,6 +449,13 @@ String aktualnyLiderImie;
     
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@             TRZEBA DODAĆ LUŹNEGO LIDERA I SPRAWDZIĆ CZY WSZYSTKO DZIAŁA
     
+    /**
+     * 
+     * Następuje wybranie lidera i pobranie o nim informacji z bazy danych
+     * 
+     * @param event 
+     */
+    
     @FXML
     private void ActionCombBboxWybierzLidera(ActionEvent event) {
         
@@ -400,7 +484,10 @@ String aktualnyLiderImie;
                 connection.close();
 
             } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać lidera");
+                
+                System.err.println(" nie można wykonac tego zapytania WYBIERZ LIDERA: " + e.getMessage());
             }
       }
     }
@@ -414,6 +501,13 @@ String aktualnyLiderImie;
     int idGrupy;    
     
     
+    /**
+     *
+     * po kliknięciu DODAJ DO GRUPY następuje dodanie wybranego pracownika do listy grupy
+     * 
+     * @param event 
+     */
+    
     @FXML
     private void ActionButtonDodajDoGrupy(ActionEvent event) {
         
@@ -425,6 +519,13 @@ String aktualnyLiderImie;
         // WczytajWolnychPracownikow();
     }
 
+    
+     /**
+     *
+     * po kliknięciu USUN Z GRUPY następuje usunięcie wybranego pracownika z listy grupy
+     * 
+     * @param event 
+     */
     
     @FXML
     private void ActionButtonUsunZGrupy(ActionEvent event) {
@@ -449,6 +550,14 @@ String aktualnyLiderImie;
     String nazwaWybranegoPracownikaNazwisko;
     int idWybranegoPracownika;    
     
+    
+    /**
+     * 
+     * po wyborze pracownika w comboboxie następuje pobranie o nim informacji
+     * i przypisanie ich pod odpowiednie zmienne
+     * 
+     * @param event 
+     */
     
     @FXML
     private void ActionCombBboxWybierzPracownika(ActionEvent event) {
@@ -480,11 +589,22 @@ String aktualnyLiderImie;
                     connection.close();
 
                 } catch (SQLException e) {
-                    System.err.println(" nie można wykonac tego zapytania: 6" + e.getMessage());
+                    
+                    PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać pracownika");
+                    
+                    System.err.println(" nie można wykonac tego zapytania WYBIERZ PRACOWNIKA: " + e.getMessage());
                 }
         }   
     } 
     
+    
+    /**
+     *
+     * Metoda powooduje aktualizację informacji o grupie poprzez połączenie z bazą danych
+     * i przesłanie do niej danych prosto ze zmiennych
+     * 
+     * @param event 
+     */
     
     @FXML
     private void ActionButtonAktualizujGrupe(ActionEvent event) {
@@ -494,15 +614,28 @@ String aktualnyLiderImie;
         
         try {
             Connection connection = connect();
-            Statement stat = connection.createStatement();
+            //Statement stat = connection.createStatement();
             
-            query = "UPDATE GRUPY SET NAZWA_GRUPY = '" + nazwaGrupy + "', ID_LIDERA =" + idWybranegoLidera + ", OPIS_GRUPY = '" + opisGrupy + "' WHERE ID_GRUPY =" + idGrupy;
-                
-            stat.executeUpdate(query);
+            //query = "UPDATE GRUPY SET NAZWA_GRUPY = '" + nazwaGrupy + "', ID_LIDERA =" + idWybranegoLidera + ", OPIS_GRUPY = '" + opisGrupy + "' WHERE ID_GRUPY =" + idGrupy;
+            
+            //stat.executeUpdate(query);
+            
+            query = "UPDATE GRUPY SET NAZWA_GRUPY = ?, ID_LIDERA = ?, OPIS_GRUPY = ? WHERE ID_GRUPY = ?";    
+            PreparedStatement stat = connection.prepareStatement(query);
+            stat.setString(1, nazwaGrupy);
+            stat.setInt(2, idWybranegoLidera);
+            stat.setString(3, opisGrupy);
+            stat.setInt(4, idGrupy);
+            
+            stat.executeUpdate();
+            
+            stat.close();
+            
+            Statement stat1 = connection.createStatement();
             
             query = "UPDATE UZYTKOWNICY SET ID_GRUPY ='" + idGrupy + "', ID_PROJEKTU ='" + idProjektu + "' WHERE ID_UZYTKOWNIKA ='" + idWybranegoLidera + "'";
             
-            stat.executeUpdate(query);
+            stat1.executeUpdate(query);
             
             // DODAWANIE
             
@@ -516,7 +649,7 @@ String aktualnyLiderImie;
                 
                 query = "SELECT ID_UZYTKOWNIKA FROM UZYTKOWNICY WHERE IMIE = '" + imieWybranego + "' AND NAZWISKO ='" + nazwiskoWybranego +"'";
                 
-                ResultSet rs = stat.executeQuery(query);
+                ResultSet rs = stat1.executeQuery(query);
                 
                 idWybranego = rs.getInt("ID_UZYTKOWNIKA");
                 
@@ -524,7 +657,7 @@ String aktualnyLiderImie;
                 
                 query = "UPDATE UZYTKOWNICY SET ID_PROJEKTU = '" + idProjektu + "', ID_GRUPY = '" + idGrupy + "' WHERE ID_UZYTKOWNIKA = '" + idWybranego + "'";
 
-                stat.executeUpdate(query);
+                stat1.executeUpdate(query);
             }
             
             // USUWANIE 
@@ -539,7 +672,7 @@ String aktualnyLiderImie;
                 
                 query = "SELECT ID_UZYTKOWNIKA FROM UZYTKOWNICY WHERE IMIE = '" + imieWybranego + "' AND NAZWISKO ='" + nazwiskoWybranego +"'";
                 
-                ResultSet rs = stat.executeQuery(query);
+                ResultSet rs = stat1.executeQuery(query);
                 
                 idWybranego = rs.getInt("ID_UZYTKOWNIKA");
                 
@@ -547,10 +680,10 @@ String aktualnyLiderImie;
                 
                 query = "UPDATE UZYTKOWNICY SET ID_PROJEKTU = '" + idProjektu + "', ID_GRUPY = NULL WHERE ID_UZYTKOWNIKA = '" + idWybranego + "'";
 
-                stat.executeUpdate(query);
+                stat1.executeUpdate(query);
             }
 
-            stat.close();
+            stat1.close();
             connection.commit();
             connection.close();
             
@@ -567,15 +700,13 @@ String aktualnyLiderImie;
 //            listviewDodani.getItems().clear();
 //            wybraniPracownicy.clear();
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zaktualizowano Grupę!");
-
-                alert.showAndWait();
+            PokazAlert("Informacja","Potwierdzenie","Zaktualizowano Grupę!");
         
         } catch (SQLException e){
-            System.err.println(" nie można wykonac tego zapytania: 5 " + e.getMessage());    
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się zaaktualizować grupę");
+            
+            System.err.println(" nie można wykonac tego zapytania AKTUALIZUJ GRUPE: " + e.getMessage());    
         }
 
             usunieciPracownicy.clear();
@@ -583,7 +714,18 @@ String aktualnyLiderImie;
             textareaOpisGrupy.clear();
             listviewDodani.getItems().clear();
             wybraniPracownicy.clear();
-        
-    }   
+    }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }    
+    
         
 }

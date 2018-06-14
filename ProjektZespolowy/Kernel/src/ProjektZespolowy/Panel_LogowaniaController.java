@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import static ProjektZespolowy.Polaczenie.connect;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javax.swing.JFrame;
 
 /**
@@ -51,9 +52,6 @@ public class Panel_LogowaniaController implements Initializable {
     private Button buttonZaloguj;
     
     @FXML
-    private Button buttonZarejestruj;
-    
-    @FXML
     private Hyperlink hyperlinkForgotPassword;
     
     @FXML
@@ -69,9 +67,16 @@ public class Panel_LogowaniaController implements Initializable {
     Stage stage = new Stage();
     Parent root = null;
     public static int idZalogowanego;
+    public static int idJegoFirmy;
+    
     
     public static int getZalogowany() {
         return idZalogowanego;
+    }
+    
+    
+    public static int getFirmaZalogowanego() {
+        return idJegoFirmy;
     }
     
     
@@ -87,67 +92,77 @@ public class Panel_LogowaniaController implements Initializable {
         Statement stat = null;
         
             try {
-                Connection connection = connect();
-                stat = connection.createStatement();
-                String query = "SELECT * FROM UZYTKOWNICY WHERE LOGIN=" + "'" + login + "'" + " AND HASLO=" + "'" + haslo + "'";
-                System.out.println(query);
+                    Connection connection = connect();
+                    stat = connection.createStatement();
+                    String query = "SELECT * FROM UZYTKOWNICY WHERE LOGIN=" + "'" + login + "'" + " AND HASLO=" + "'" + haslo + "'";
+                    System.out.println(query);
 
-                
-                ResultSet rs = stat.executeQuery(query);
+                    ResultSet rs = stat.executeQuery(query);  
 
-                if (rs.next()) {
-                    
-                    idStanowiska = rs.getInt("ID_STANOWISKA");
-                    
-                    idZalogowanego = rs.getInt("ID_UZYTKOWNIKA");
-                    
-                    switch(idStanowiska){
-                        case 1:
-                            root = FXMLLoader.load(getClass().getResource("Panel_Zlecajacego.fxml"));
-                            break;
-                  
-                        case 2:
-                            root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
-                            break;
+                    if (rs.next()) {
 
-                        case 3:
-                            root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
-                            break;
+                        idStanowiska = rs.getInt("ID_STANOWISKA");
 
-                        case 4:
-                            root = FXMLLoader.load(getClass().getResource("Panel_Lidera_Grupy.fxml"));
-                            break;
+                        idZalogowanego = rs.getInt("ID_UZYTKOWNIKA");
 
-                        case 5:
-                            root = FXMLLoader.load(getClass().getResource("Panel_Cz_Grupy.fxml"));
-                            break;                          
+                        idJegoFirmy = rs.getInt("ID_FIRMY");
+
+                        switch(idStanowiska){
+                            case 1:
+                                root = FXMLLoader.load(getClass().getResource("Panel_Zlecajacego.fxml"));
+                                break;
+
+                            case 2:
+                                root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
+                                break;
+
+                            case 3:
+                                root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
+                                break;
+
+                            case 4:
+                                root = FXMLLoader.load(getClass().getResource("Panel_Lidera_Grupy.fxml"));
+                                break;
+
+                            case 5:
+                                root = FXMLLoader.load(getClass().getResource("Panel_Cz_Grupy.fxml"));
+                                break;                          
+                        }
+                            ((Node)(event.getSource())).getScene().getWindow().hide();
+                            Scene scene = new Scene(root);
+                            scene.getStylesheets().add
+                            (Glowna.class.getResource("Design.css").toExternalForm());
+                            stage.setScene(scene);
+                            stage.show();
+
+                    } else {
+                        
+                        PokazAlert("Informacja","Błąd","Niestety nie udało Ci się zalogować. Sprawdź poprawność wprowadzonych danych.");
+                        textfieldHaslo.setText(null);
+                        textfieldLogin.setText(null);
                     }
-                        ((Node)(event.getSource())).getScene().getWindow().hide();
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add
-                        (Glowna.class.getResource("Design.css").toExternalForm());
-                        stage.setScene(scene);
-                        stage.show();
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Niepoprawne dane logowania", "Login Error", JOptionPane.ERROR_MESSAGE);
-                    textfieldHaslo.setText(null);
-                    textfieldLogin.setText(null);
-                }
-
-                stat.close();
-                connection.close();
+                    stat.close();
+                    connection.close();
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Coś poszło nie tak !", "Login Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+                
+                PokazAlert("Informacja","Błąd","Niestety nie udało Ci się zalogować. Sprawdź poprawność wprowadzonych danych.");
+                
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
             }
     }
+
+
+    public void PokazAlert(String tytul, String headText, String content) {
     
- 
-    @FXML
-    private void ActionButtonZarejestruj(ActionEvent event) throws IOException {
-    }    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }   
+  
 
 }

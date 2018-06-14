@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="303.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_RejestracjiController">
+    <stylesheets>
+        <URL value="@Design.css" />
+    </stylesheets>
+   <children>
+      <ComboBox fx:id="comboboxStanowisko" layoutX="121.0" layoutY="233.0" onAction="#ActionComboboxStanowisko" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Button fx:id="buttonWroc" layoutX="28.0" layoutY="291.0" mnemonicParsing="false" onAction="#ActionButtonWroc" stylesheets="@Design.css" text="Wróć" />
+      <Button fx:id="buttonStworzKonto" layoutX="130.0" layoutY="291.0" mnemonicParsing="false" onAction="#ActionButtonStworzKonto" text="Stwórz Konto" />
+      <Label layoutX="24.0" layoutY="67.0" text="Imie:" />
+      <PasswordField fx:id="textfieldHaslo" layoutX="120.0" layoutY="186.0" styleClass="textField" />
+      <TextField fx:id="textfieldImie" layoutX="120.0" layoutY="63.0" styleClass="textField" />
+      <TextField fx:id="textfieldNazwisko" layoutX="120.0" layoutY="104.0" styleClass="textField" />
+      <TextField fx:id="textfieldLogin" layoutX="120.0" layoutY="145.0" styleClass="textField" />
+      <Label layoutX="24.0" layoutY="108.0" text="Nazwisko:" />
+      <Label layoutX="24.0" layoutY="149.0" text="Login:" />
+      <Label layoutX="24.0" layoutY="190.0" text="Hasło:" />
+   </children>
+</AnchorPane>

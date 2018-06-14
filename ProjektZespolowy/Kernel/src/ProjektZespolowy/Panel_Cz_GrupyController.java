@@ -63,6 +63,13 @@ import javafx.scene.control.ProgressBar;
  * FXML Controller class
  *
  * @author MaRkOs
+ * 
+ * 
+ * Dana klasa jest odzwierciedleniem możliwości
+ * nadanych zwykłemu członkowi grupy pracowników.
+ * 
+ * 
+ * 
  */
 
 public class Panel_Cz_GrupyController implements Initializable{
@@ -231,6 +238,19 @@ private ProgressBar barDataSprint;
     public void initialize(URL url, ResourceBundle rb) {   
 
         //WczytajProjekty();
+        
+        /**
+         * 
+         * Po zalogowaniu się do danego modułu,
+         * automatycznie zostają wczytane dane związane
+         * ze sprintami / chatem
+         * 
+         * Przy okazji blokujemy kilka pół znajdujących się
+         * po prawej stronie interfejsu - są to miejsca
+         * do których dostęp ma tylko Lider
+         *  
+         */
+        
         WczytajSprinty();
         WczytajChat(0);
         textfieldStatus.setDisable(true);
@@ -240,6 +260,14 @@ private ProgressBar barDataSprint;
 
     }
     
+    /**
+     * 
+     * Po naciśnięciu w przycisk Wyjdź, aplikacja wyłącza aktualne okno
+     * i przechodzi do okna logowania
+     * 
+     * @param event
+     * @throws IOException 
+     */
     
     @FXML
     private void ActionWyjdz(ActionEvent event) throws IOException {
@@ -258,8 +286,14 @@ private ProgressBar barDataSprint;
         stage.show();
     }
     
+    /**
+     *
+     * Metoda zaczytuje listę wszytkich projektów z bazy danych
+     * 
+     */
     
     public void WczytajProjekty() {
+        
         try {
 
                 Connection connection = connect();
@@ -278,6 +312,9 @@ private ProgressBar barDataSprint;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ PROJEKTY" + e.getMessage());
             }        
     }    
@@ -286,6 +323,12 @@ private ProgressBar barDataSprint;
     int idProjektu;
     String nazwaProjektu;
     
+    
+    /**
+     * 
+     * Metoda zaczytuje listę wszystkich sprintów z bazy danych
+     * 
+     */
     
     public void WczytajSprinty() {
         
@@ -305,6 +348,9 @@ private ProgressBar barDataSprint;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać sprintu ID: #1");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ ID PROJEKTU" + e.getMessage());
             }        
         
@@ -326,6 +372,9 @@ private ProgressBar barDataSprint;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać sprintów ID: #2");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ SPRINTY" + e.getMessage());
             }        
     }     
@@ -342,6 +391,14 @@ private ProgressBar barDataSprint;
     String nazwaGrupy;
     int czyscGrupy = 0;
     
+    
+    /**
+     * 
+     * Metoda wczytuję wiadomości z chatu, zapisane w bazie danych
+     * 
+     * zmienna mówiąca o tym czy został wciśnięty przycisk WYCZYŚĆ CHAT
+     * @param czyscGrupy 
+     */
     
     public void WczytajChat(int czyscGrupy) {
         
@@ -372,6 +429,9 @@ private ProgressBar barDataSprint;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu ID: #1");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 1" + e.getMessage());
             }        
         
@@ -409,6 +469,9 @@ private ProgressBar barDataSprint;
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać chatu ID: #2");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ CHAT 2" + e.getMessage());
             }        
     }
@@ -423,7 +486,16 @@ private ProgressBar barDataSprint;
     double wartoscProgresuZadan;
     
     
-@FXML
+    /**
+     * 
+     * Pobierane są wszystkie informacje na temat wybranego sprintu
+     * 
+     * a następnie odpowiednie dane są wyświetlane w interfejsie
+     * 
+     * @param event 
+     */
+    
+    @FXML
     private void ActionComboBoxWybierzSprint(ActionEvent event) {
         
         nazwaSprintu = (String) comboboxWybierzSprint.getSelectionModel().getSelectedItem();
@@ -487,10 +559,20 @@ private ProgressBar barDataSprint;
             WczytajBarSprint();
             
         } catch (SQLException e) {
-            System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT 2" + e.getMessage());
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wybrać sprintu ID: #1");
+            
+            System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT 1" + e.getMessage());
         }
     }
     
+    
+    /**
+     *
+     * Metoda odpowiada za prawidłowe pobranie i wyświetlenie danych statystycznych związanych
+     * z zadaniami wybranego sprintu
+     * 
+     */
     
     public void WczytajBarSprint() {
         
@@ -546,6 +628,9 @@ private ProgressBar barDataSprint;
                 connection.close();            
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać progresu sprintu");
+                
                 System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT 1" + e.getMessage());
             }
     }
@@ -575,6 +660,14 @@ private ProgressBar barDataSprint;
     int klikNaSiebie = 0;
     String statusText;
             
+    
+    /**
+     *
+     * Metoda odpowiada za wczytanie danych o zadaniach dla zalogowanego użytkownika
+     * oraz umieszczenie owych danych w odpowiednich miejscach interfejsu
+     * 
+     * @throws SQLException 
+     */
     
     public void WczytajZadania() throws SQLException {
         
@@ -621,6 +714,14 @@ private ProgressBar barDataSprint;
             //zadanie.setId(""+i);
             
             
+            /**
+             * 
+             * Po kliknięciu na zadanie pobierane jest ID zadania
+             * a następnie wszelkie informacje o zadaniu
+             * i zostają one wyświetlone w prawej części interfejsu
+             * 
+             */
+            
             zadanie.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -665,6 +766,14 @@ private ProgressBar barDataSprint;
                     textareaKomentarz.setWrapText(true);
                 }});
             
+            /**
+             * 
+             * Po kliknięciu na wyznaczone pole etapu / statusu zadania
+             * następuje sprawdzenie, czy wcześniej zostało wybrane (kliknięte)
+             * jakieś zadanie. Jeśli tak to owe zadanie zostaje przeniesione do
+             * etapu na którym nastąpiło kliknięcie
+             * 
+             */
             
             paneDuring.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -709,6 +818,7 @@ private ProgressBar barDataSprint;
                         } catch (SQLException ex) {
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -720,6 +830,12 @@ private ProgressBar barDataSprint;
                         System.out.println("KLIK PANEL PO kasacji : "+klikPane);
                     }}});
             
+            
+            /**
+             *
+             * Po najechaniu na pole etapu, następuje zmiana tła
+             * 
+             */
             
             paneDuring.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
@@ -782,6 +898,7 @@ private ProgressBar barDataSprint;
                         } catch (SQLException ex) {
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -855,6 +972,7 @@ private ProgressBar barDataSprint;
                         } catch (SQLException ex) {
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -928,6 +1046,7 @@ private ProgressBar barDataSprint;
                         } catch (SQLException ex) {
                             Logger.getLogger(Panel_Lidera_GrupyController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
                         System.out.println("KLIK PANEL Przed kasacja : "+klikPane);
                         klikZadanie=0;
                         klikPaneToDo = 0;
@@ -973,6 +1092,15 @@ private ProgressBar barDataSprint;
                     zadanie.setStyle("-fx-background-color: #5bbdcf; -fx-border-color: blue; -fx-border-width: 1;");
                 }});
             
+            
+            /**
+             * 
+             * w zależności od liczby zadań znajdujących się w każdym
+             * z pól etapów, każde zadanie jest umieszczane jedno pod drugim
+             * z tego względu należy odpowiednie kontenery
+             * równomiernie ułożyć w polu etapu
+             * 
+             */
             
             switch(status) {
             
@@ -1034,7 +1162,7 @@ private ProgressBar barDataSprint;
             zadanie.getChildren().get(2).prefWidth(20);
             zadanie.getChildren().get(2).setLayoutX(115);
             zadanie.getChildren().get(2).setLayoutY(45);
-
+            
             switch(status) {
             
             case 1:
@@ -1075,6 +1203,14 @@ private ProgressBar barDataSprint;
     }
 
     
+    /**
+     *
+     * Metoda odpowiada za pobranie z pola tekstowego wiadomości, wysłanie jej do bazy a następnie
+     * wyświetlenie w oknie chatu
+     * 
+     * @param event 
+     */
+    
     @FXML
     private void ActionChatWyslij(ActionEvent event) {
         
@@ -1107,10 +1243,20 @@ private ProgressBar barDataSprint;
                 }
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wysłać wiadomości na chacie");
+                
                 System.err.println(" nie można wykonac tego zapytania: CHAT WYŚLIJ" + e.getMessage());
             }    
     }
 
+    
+    /**
+     *
+     * Metoda odpowiada za wyczyszczenie okna chatu
+     * 
+     * @param event 
+     */
     
     @FXML
     private void ActionChatWyczysc(ActionEvent event) {
@@ -1128,6 +1274,13 @@ private ProgressBar barDataSprint;
     String komentarzWybranegoZadania;
     
     
+    /**
+     * 
+     * Metoda odpowiada za zapisanie zmian wprowadzonych przez użytkownika poprzez
+     * wykorzystanie prawej części interfejsu
+     * 
+     * @param event 
+     */
     
     @FXML
     private void ActionButtonZapiszZmianyZadanie(ActionEvent event) {
@@ -1150,25 +1303,49 @@ private ProgressBar barDataSprint;
                 connection.commit();
                 connection.close();
 
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Zapisany zmiany w zadaniu!");
-
-                alert.showAndWait();
-                
-            //JOptionPane.showMessageDialog(null, "Zapisano Zmiany w Zadaniu", "Edycja Zadania", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Zapisany zmiany w zadaniu!");
             
             WczytajZadania();
             
         } catch (SQLException e) {
+            
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się zapisać zmian");
+            
                 System.err.println(" nie można wykonac tego zapytania: ZAPISZ ZMIANY ZADANIE " + e.getMessage());
             }
     }
+    
+    /**
+     * 
+     * Metoda zwraca ID wybranego / klikniętego zadania
+     * 
+     * @return 
+     */
     
     public static int getWybraneZadanie() {
         return wybraneZadanie;
     }
 
+    /**
+     *
+     * Metoda odpowiada za utworzenie okna dialogowego
+     * i przekazanie odpowiednich informacji
+     * 
+     * Pod dane zmienne podajemy odpowiednie informacje w zależności od sytuacji
+     * @param tytul
+     * @param headText
+     * @param content 
+     */
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }    
+    
     
 }

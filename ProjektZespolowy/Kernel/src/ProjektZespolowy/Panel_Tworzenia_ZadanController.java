@@ -5,6 +5,7 @@
  */
 package ProjektZespolowy;
 
+import static ProjektZespolowy.Panel_Lidera_GrupyController.getWybraneZadanie;
 import static ProjektZespolowy.Polaczenie.connect;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import static ProjektZespolowy.Panel_LogowaniaController.getZalogowany;
+import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Alert;
@@ -76,7 +78,8 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
         WczytajIdProjektu();
         WczytajSprinty();
         WczytajPriorytet();
-        WczytajGrupy();
+        //WczytajGrupy();
+        comboboxWybierzGrupe.setVisible(false);
         WczytaniePracownikow();
         
         System.out.println("ZALOGOWANY ID "+getZalogowany());
@@ -103,6 +106,9 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wczytać priorytetów.");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }    
@@ -110,7 +116,7 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
 
     public void WczytaniePracownikow() {
         
-                try {
+            try {
 
                 Connection connection = connect();
                 Statement stat = connection.createStatement(); //INNER JOIN PROJEKTY ON UZYTKOWNICY.ID_UZYTKOWNIKA != PROJEKTY.ID_KIEROWNIKA
@@ -131,33 +137,40 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wczytać pracowników.");
+                
                 System.err.println(" nie można wykonac tego zapytania: 2" + e.getMessage());
             }
     }
    
     
-    public void WczytajGrupy() {
-        try {
-
-                Connection connection = connect();
-                Statement stat = connection.createStatement();
-                
-                String query = "SELECT NAZWA_GRUPY FROM GRUPY WHERE ID_PROJEKTU ="+idProjektu;
-                
-                ResultSet rs = stat.executeQuery(query);
-                
-                while(rs.next()) {
-                    comboboxWybierzGrupe.getItems().addAll(rs.getString("NAZWA_GRUPY"));   
-                }
-                        
-                stat.close();
-                connection.commit();
-                connection.close();
-
-            } catch (SQLException e) {
-                System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
-            }        
-    }    
+//    public void WczytajGrupy() {
+//        
+//        try {
+//
+//                Connection connection = connect();
+//                Statement stat = connection.createStatement();
+//                
+//                String query = "SELECT NAZWA_GRUPY FROM GRUPY WHERE ID_PROJEKTU ="+idProjektu;
+//                
+//                ResultSet rs = stat.executeQuery(query);
+//                
+//                while(rs.next()) {
+//                    comboboxWybierzGrupe.getItems().addAll(rs.getString("NAZWA_GRUPY"));   
+//                }
+//                        
+//                stat.close();
+//                connection.commit();
+//                connection.close();
+//
+//            } catch (SQLException e) {
+//                
+//                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wczytać grupy.");
+//                
+//                System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
+//            }        
+//    }    
 
     
     public void WczytajIdProjektu() {
@@ -167,23 +180,29 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
                 
-                String query = "SELECT ID_PROJEKTU FROM UZYTKOWNICY WHERE ID_UZYTKOWNIKA ="+getZalogowany();
+                //String query = "SELECT ID_PROJEKTU FROM UZYTKOWNICY WHERE ID_UZYTKOWNIKA ="+getZalogowany();
+                String query = "SELECT ID_PROJEKTU, ID_GRUPY FROM UZYTKOWNICY WHERE ID_UZYTKOWNIKA ="+getZalogowany();
                 
                 ResultSet rs = stat.executeQuery(query);
                 
                 idProjektu = rs.getInt("ID_PROJEKTU");
+                idGrupy = rs.getInt("ID_GRUPY");
                 
                 stat.close();
                 connection.commit();
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych. Błąd ID: #IDPROJ.");
+                
                 System.err.println(" nie można wykonac tego zapytania: WCZYTAJ ID PROJEKTU" + e.getMessage());
             }
     }    
     
 
     public void WczytajSprinty() {
+        
         try {
 
                 Connection connection = connect();
@@ -202,6 +221,9 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wczytać sprintów.");
+                
                 System.err.println(" nie można wykonac tego zapytania: " + e.getMessage());
             }        
     }    
@@ -299,6 +321,9 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wybrać członka grupy.");
+                
                 System.err.println(" nie można wykonac tego zapytania: WYBIERZ CZ GRUPY" + e.getMessage());
             }         
         
@@ -331,6 +356,9 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
             connection.close();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wybrać sprintu");
+            
             System.err.println(" nie można wykonac tego zapytania: WYBIERZ SPRINT" + e.getMessage());
         }        
         
@@ -366,6 +394,9 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
             WczytaniePracownikow();
             
         } catch (SQLException e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się wybrać grupy.");
+            
             System.err.println(" nie można wykonac tego zapytania:  WYBIERZ GRUPE" + e.getMessage());
         }
                         
@@ -401,21 +432,34 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
         try {
 
                 Connection connection = connect();
-                Statement stat = connection.createStatement();
+//                Statement stat = connection.createStatement();
+//
+//                query = "INSERT INTO ZADANIA(NAZWA_ZADANIA, STATUS, PRIORYTET, ID_ZGLASZAJACEGO, ID_PRZYPISANEGO, DATA_UTWORZENIA, DATA_AKTUALIZACJI, OPIS, KOMENTARZ, ID_PROJEKTU, ID_SPRINTU, ID_GRUPY) VALUES"
+//                        + " ('" + nazwaZadania + "','" + statusZadania + "','" + wybranyPriorytet + "','" + idZglaszajacego + "','" + idPrzypisanego + "','" + dataUtworzenia + "','" + dataAktualizacji + "','" + opisZadania + "','" + komentarzZadania + "','" + idProjektu + "','" + idSprintu + "','" + idGrupy + "')";
+//                
+//                stat.executeUpdate(query);
 
-                query = "INSERT INTO ZADANIA(NAZWA_ZADANIA, STATUS, PRIORYTET, ID_ZGLASZAJACEGO, ID_PRZYPISANEGO, DATA_UTWORZENIA, DATA_AKTUALIZACJI, OPIS, KOMENTARZ, ID_PROJEKTU, ID_SPRINTU, ID_GRUPY) VALUES"
-                        + " ('" + nazwaZadania + "','" + statusZadania + "','" + wybranyPriorytet + "','" + idZglaszajacego + "','" + idPrzypisanego + "','" + dataUtworzenia + "','" + dataAktualizacji + "','" + opisZadania + "','" + komentarzZadania + "','" + idProjektu + "','" + idSprintu + "','" + idGrupy + "')";
-                
-                stat.executeUpdate(query);
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Informacja");
-                alert.setHeaderText("Potwierdzenie");
-                alert.setContentText("Utworzono zadanie!");
+               query = "INSERT INTO ZADANIA(NAZWA_ZADANIA, STATUS, PRIORYTET, ID_ZGLASZAJACEGO, ID_PRZYPISANEGO, DATA_UTWORZENIA, DATA_AKTUALIZACJI, OPIS, KOMENTARZ, ID_PROJEKTU, ID_SPRINTU, ID_GRUPY) VALUES"
+                        + " (?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement stat = connection.prepareStatement(query);
+                stat.setString(1, nazwaZadania);
+                stat.setInt(2, statusZadania);
+                stat.setString(3, wybranyPriorytet);
+                stat.setInt(4, idZglaszajacego);
+                stat.setInt(5, idPrzypisanego);
+                stat.setString(6, dataUtworzenia);
+                stat.setString(7, dataAktualizacji);
+                stat.setString(8, opisZadania);
+                stat.setString(9, komentarzZadania);
+                stat.setInt(10, idProjektu);
+                stat.setInt(11, idSprintu);
+                stat.setInt(12, idGrupy);
 
-                alert.showAndWait();                
+                stat.executeUpdate();
+
+                stat.close();
                 
-                //JOptionPane.showMessageDialog(null, "Utworzono Zadanie", "Tworzenie Zadania", JOptionPane.INFORMATION_MESSAGE);
+                PokazAlert("Informacja","Potwierdzenie","Utworzono zadanie!");
                 
                 WczytajPriorytet();
                 
@@ -424,8 +468,23 @@ public class Panel_Tworzenia_ZadanController implements Initializable {
                 connection.close();
 
             } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił problem z bazą danych i nie udało się utworzyć zadania.");
+                
                 System.err.println(" nie można wykonac tego zapytania: UTWORZ ZADANIE" + e.getMessage());
             }
     }
+    
+    
+    public void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }
+    
     
 }

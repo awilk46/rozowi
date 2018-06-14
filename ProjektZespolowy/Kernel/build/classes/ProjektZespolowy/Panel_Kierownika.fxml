@@ -7,63 +7,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_KierownikaController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1366.0" styleClass="anchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjektZespolowy.Panel_KierownikaController">
     <stylesheets>
         <URL value="@Design.css" />
     </stylesheets>
    <children>
-      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="115.0" layoutY="30.0" onAction="#ActionComboBoxWybierzProjekt" prefWidth="150.0" styleClass="comboboxProjekt" />
-      <Label layoutX="23.0" layoutY="34.0" text="Wybierz Projekt:" />
-      <Label layoutX="26.0" layoutY="278.0" text="Wybierz Grupę:" />
-      <ComboBox fx:id="comboboxWybierzGrupe" layoutX="118.0" layoutY="274.0" onAction="#ActionComboBoxWybierzGrupe" prefWidth="150.0" styleClass="comboboxProjekt" />
-      <ProgressBar fx:id="progresbarProjekt" layoutX="23.0" layoutY="112.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" />
-      <Label layoutX="72.0" layoutY="83.0" text="Progres projektu:" />
-      <Label layoutX="241.0" layoutY="83.0" text="Liczba grup:" />
-      <Label layoutX="241.0" layoutY="104.0" text="Liczba wszystkich zadań:" />
-      <Label layoutX="81.0" layoutY="406.0" text="Liczba członków:" />
-      <Label layoutX="130.0" layoutY="350.0" text="Progres sprintu:" />
-      <ProgressBar fx:id="progresbarSprint" layoutX="81.0" layoutY="379.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" />
-      <ComboBox fx:id="comboboxWybierzSprint" layoutX="118.0" layoutY="311.0" onAction="#ActionComboBoxWybierzSprint" prefWidth="150.0" styleClass="comboboxProjekt" />
-      <Label layoutX="26.0" layoutY="315.0" text="Wybierz Sprint:" />
-      <Label fx:id="labelLiczbaCzlonkow" layoutX="238.0" layoutY="405.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Label fx:id="labelLiczbaZadanGrupa" layoutX="238.0" layoutY="431.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Label layoutX="241.0" layoutY="130.0" text="Liczba ukończonych zadań:" />
-      <Label layoutX="79.0" layoutY="457.0" text="Liczba ukończonych zadań:" />
-      <Label layoutX="81.0" layoutY="431.0" text="Liczba wszystkich zadań:" />
-      <Label fx:id="labelLiczbaUZadanGrupa" layoutX="238.0" layoutY="457.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Label layoutX="77.0" layoutY="488.0" text="Lider Grupy: " />
-      <Label fx:id="labelLiderGrupy" layoutX="151.0" layoutY="488.0" prefHeight="17.0" prefWidth="150.0" text="IMIE I NAZWISKO" />
-      <TableView fx:id="tableviewGrupy" layoutX="313.0" layoutY="240.0" prefHeight="200.0" prefWidth="888.0" styleClass="tableview">
-        <columns>
-          <TableColumn prefWidth="64.0" text="ID_GRUPY" />
-          <TableColumn prefWidth="149.0" text="NAZWA_GRUPY" />
-            <TableColumn prefWidth="154.0" text="LIDER" />
-            <TableColumn prefWidth="44.0" text="L_ZAD" />
-            <TableColumn prefWidth="55.0" text="L_U_ZAD" />
-            <TableColumn prefWidth="90.0" text="STOSUNEK" />
-            <TableColumn prefWidth="330.0" text="OPIS_GRUPY" />
-        </columns>
-      </TableView>
-      <Label fx:id="labelLiczbaZadanUProjekt" layoutX="395.0" layoutY="130.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Label fx:id="labelLiczbaZadanProjekt" layoutX="395.0" layoutY="104.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Label fx:id="labelLiczbaGrup" layoutX="395.0" layoutY="78.0" prefHeight="17.0" prefWidth="29.0" text="0" />
-      <Button fx:id="buttonWyjdz" layoutX="35.0" layoutY="659.0" mnemonicParsing="false" onAction="#ActionWyjdz" styleClass="buttonCzGrupy" text="Wyjdź" />
-      <Button fx:id="buttonStworzProjekt" layoutX="304.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActionButtonStworzProjekt" styleClass="buttonCzGrupy" text="Stwórz Projekt" />
-      <TableView fx:id="tableviewProjekty" layoutX="431.0" layoutY="21.0" prefHeight="200.0" prefWidth="915.0" styleClass="tableview">
+      <ComboBox fx:id="comboboxWybierzProjekt" layoutX="115.0" layoutY="30.0" onAction="#ActionComboBoxWybierzProjekt" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="23.0" layoutY="34.0" stylesheets="@Design.css" text="Wybierz Projekt:" />
+      <Label layoutX="442.0" layoutY="73.0" stylesheets="@Design.css" text="Wybierz Grupę:" />
+      <ComboBox fx:id="comboboxWybierzGrupe" layoutX="534.0" layoutY="69.0" onAction="#ActionComboBoxWybierzGrupe" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <ProgressBar fx:id="progresbarProjekt" layoutX="23.0" layoutY="112.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
+      <Label layoutX="72.0" layoutY="83.0" stylesheets="@Design.css" text="Progres projektu:" />
+      <Label layoutX="241.0" layoutY="83.0" stylesheets="@Design.css" text="Liczba grup:" />
+      <Label layoutX="241.0" layoutY="104.0" stylesheets="@Design.css" text="Liczba wszystkich zadań:" />
+      <Label layoutX="438.0" layoutY="132.0" stylesheets="@Design.css" text="Liczba członków:" />
+      <Label layoutX="984.0" layoutY="101.0" stylesheets="@Design.css" text="Progres sprintu:" />
+      <ProgressBar fx:id="progresbarSprint" layoutX="935.0" layoutY="130.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
+      <ComboBox fx:id="comboboxWybierzSprint" layoutX="1009.0" layoutY="58.0" onAction="#ActionComboBoxWybierzSprint" prefWidth="150.0" styleClass="comboBox" stylesheets="@Design.css" />
+      <Label layoutX="917.0" layoutY="62.0" stylesheets="@Design.css" text="Wybierz Sprint:" />
+      <Label fx:id="labelLiczbaCzlonkow" layoutX="537.0" layoutY="132.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Label fx:id="labelLiczbaZadanGrupaSprint" layoutX="1128.0" layoutY="159.0" prefHeight="17.0" prefWidth="44.0" stylesheets="@Design.css" text="0" />
+      <Label layoutX="241.0" layoutY="130.0" stylesheets="@Design.css" text="Liczba ukończonych zadań:" />
+      <Label layoutX="928.0" layoutY="184.0" stylesheets="@Design.css" text="Liczba ukończonych zadań sprintu:" />
+      <Label layoutX="930.0" layoutY="158.0" stylesheets="@Design.css" text="Liczba wszystkich zadań sprintu:" />
+      <Label layoutX="438.0" layoutY="104.0" stylesheets="@Design.css" text="Lider Grupy: " />
+      <Label fx:id="labelLiderGrupy" layoutX="512.0" layoutY="104.0" prefHeight="17.0" prefWidth="150.0" stylesheets="@Design.css" text="IMIE I NAZWISKO" />
+      <Label fx:id="labelLiczbaZadanUProjekt" layoutX="395.0" layoutY="130.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Label fx:id="labelLiczbaZadanProjekt" layoutX="395.0" layoutY="104.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Label fx:id="labelLiczbaGrup" layoutX="395.0" layoutY="78.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Button fx:id="buttonWyjdz" layoutX="14.0" layoutY="681.0" mnemonicParsing="false" onAction="#ActionWyjdz" stylesheets="@Design.css" text="Wyjdź" />
+      <Button fx:id="buttonStworzProjekt" layoutX="304.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActionButtonStworzProjekt" stylesheets="@Design.css" text="Stwórz Projekt" />
+      <TableView fx:id="tableviewZadania" layoutX="26.0" layoutY="215.0" prefHeight="200.0" prefWidth="1330.0" styleClass="tableView" stylesheets="@Design.css">
          <columns>
-            <TableColumn prefWidth="64.0" text="ID_PROJEKTU" />
-            <TableColumn prefWidth="253.0" text="NAZWA_PROJEKTU" />
-            <TableColumn prefWidth="163.0" text="KIEROWNIK_PROJEKTU" />
-            <TableColumn prefWidth="48.0" text="L_ZAD" />
-            <TableColumn prefWidth="54.0" text="L_U_ZAD" />
-            <TableColumn prefWidth="66.0" text="STOSUNEK" />
-            <TableColumn prefWidth="265.0" text="OPIS_PROJEKTU" />
+            <TableColumn fx:id="kolumnaNazwaZadania" prefWidth="192.0" styleClass="tableColumn" text="NAZWA_ZADANIA" />
+            <TableColumn fx:id="kolumnaStatus" prefWidth="137.0" styleClass="tableColumn" text="STATUS" />
+            <TableColumn fx:id="kolumnaPriorytet" prefWidth="105.0" styleClass="tableColumn" text="PRIORYTET" />
+            <TableColumn fx:id="kolumnaDataUtworzenia" prefWidth="94.0" styleClass="tableColumn" text="DATA_UTWORZENIA" />
+            <TableColumn fx:id="kolumnaDataAktualizacji" prefWidth="91.0" styleClass="tableColumn" text="DATA_AKTUALIZACJI" />
+            <TableColumn fx:id="kolumnaOpis" prefWidth="373.0" styleClass="tableColumn" text="OPIS" />
+            <TableColumn fx:id="kolumnaKomentarz" prefWidth="337.0" styleClass="tableColumn" text="KOMENTARZ" />
          </columns>
       </TableView>
-      <Button fx:id="buttonStworzGrupe" layoutX="28.0" layoutY="237.0" mnemonicParsing="false" onAction="#ActionButtonStworzGrupe" styleClass="buttonCzGrupy" text="Stwórz Grupę" />
-      <Button fx:id="buttonEdytujGrupy" layoutX="144.0" layoutY="237.0" mnemonicParsing="false" onAction="#ActionButtonEdytujGrupy" styleClass="buttonCzGrupy" text="Edytuj Grupy" />
-      <Button fx:id="buttonEdytujProjekty" layoutX="302.0" layoutY="167.0" mnemonicParsing="false" onAction="#ActionButtonEdytujProjekty" styleClass="buttonCzGrupy" text="Edytuj Projekty" />
-      <AnchorPane fx:id="paneChatProjekt" layoutX="313.0" layoutY="448.0" prefHeight="265.0" prefWidth="439.0" styleClass="anchorpaneChat">
+      <Button fx:id="buttonStworzGrupe" layoutX="444.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActionButtonStworzGrupe" stylesheets="@Design.css" text="Stwórz Grupę" />
+      <Button fx:id="buttonEdytujGrupy" layoutX="560.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActionButtonEdytujGrupy" stylesheets="@Design.css" text="Edytuj Grupy" />
+      <Button fx:id="buttonEdytujProjekty" layoutX="302.0" layoutY="167.0" mnemonicParsing="false" onAction="#ActionButtonEdytujProjekty" stylesheets="@Design.css" text="Edytuj Projekty" />
+      <AnchorPane fx:id="paneChatProjekt" layoutX="329.0" layoutY="429.0" prefHeight="265.0" prefWidth="441.0" styleClass="anchorpaneChat" stylesheets="@Design.css">
          <children>
             <TextArea fx:id="textareaChatProjekt" layoutX="6.0" layoutY="28.0" prefHeight="189.0" prefWidth="427.0" />
             <TextField fx:id="textfieldChatProjekt" layoutX="6.0" layoutY="229.0" prefHeight="25.0" prefWidth="267.0" />
@@ -73,5 +61,14 @@
             <Label fx:id="labelChatTytulProjekt" layoutX="11.0" layoutY="6.0" prefHeight="17.0" prefWidth="44.0" text="Projekt:" />
          </children>
       </AnchorPane>
+      <Label fx:id="labelLiczbaUZadanGrupa" layoutX="621.0" layoutY="190.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Label layoutX="439.0" layoutY="163.0" stylesheets="@Design.css" text="Liczba wszystkich zadań grupy:" />
+      <Label layoutX="437.0" layoutY="189.0" stylesheets="@Design.css" text="Liczba ukończonych zadań grupy:" />
+      <Label fx:id="labelLiczbaZadanGrupa" layoutX="621.0" layoutY="164.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <ProgressBar fx:id="progresbarGrupa" layoutX="650.0" layoutY="138.0" prefWidth="200.0" progress="0.0" styleClass="progresBar" stylesheets="@Design.css" />
+      <Label layoutX="686.0" layoutY="110.0" stylesheets="@Design.css" text="Progres zadań w grupie:" />
+      <Label fx:id="labelLiczbaUZadanGrupaSprint" layoutX="1127.0" layoutY="184.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
+      <Button fx:id="buttonZarejestrujUzytkownika" layoutX="669.0" layoutY="33.0" mnemonicParsing="false" onAction="#ActionButtonZarejestrujUzytkownika" stylesheets="@Design.css" text="Zarejestruj Użytkownika" />
+      <Button fx:id="buttonGenerujRaport" layoutX="74.0" layoutY="159.0" mnemonicParsing="false" onAction="#ActionButtonGenerujRaport" stylesheets="@Design.css" text="Generuj Raport" />
    </children>
 </AnchorPane>
