@@ -259,7 +259,6 @@ private Button buttonZapiszZmianyZadanie;
         textfieldPriorytet.setDisable(true);
         textfieldUtworzono.setDisable(true);
         textfieldZaaktualizowano.setDisable(true);
-        
     }
     
     

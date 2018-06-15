@@ -36,7 +36,6 @@
       <Label fx:id="labelLiczbaZadanProjekt" layoutX="395.0" layoutY="104.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
       <Label fx:id="labelLiczbaGrup" layoutX="395.0" layoutY="78.0" prefHeight="17.0" prefWidth="29.0" stylesheets="@Design.css" text="0" />
       <Button fx:id="buttonWyjdz" layoutX="14.0" layoutY="681.0" mnemonicParsing="false" onAction="#ActionWyjdz" stylesheets="@Design.css" text="Wyjdź" />
-      <Button fx:id="buttonStworzProjekt" layoutX="304.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActionButtonStworzProjekt" stylesheets="@Design.css" text="Stwórz Projekt" />
       <TableView fx:id="tableviewZadania" layoutX="26.0" layoutY="215.0" prefHeight="200.0" prefWidth="1330.0" styleClass="tableView" stylesheets="@Design.css">
          <columns>
             <TableColumn fx:id="kolumnaNazwaZadania" prefWidth="192.0" styleClass="tableColumn" text="NAZWA_ZADANIA" />

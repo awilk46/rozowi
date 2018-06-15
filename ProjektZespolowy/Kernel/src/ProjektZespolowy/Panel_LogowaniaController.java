@@ -68,6 +68,7 @@ public class Panel_LogowaniaController implements Initializable {
     Parent root = null;
     public static int idZalogowanego;
     public static int idJegoFirmy;
+    public static int idStanowiskaZalogowanego;
     
     
     public static int getZalogowany() {
@@ -77,6 +78,10 @@ public class Panel_LogowaniaController implements Initializable {
     
     public static int getFirmaZalogowanego() {
         return idJegoFirmy;
+    }
+    
+    public static int getStanowiskoZalogowanego() {
+        return idStanowiskaZalogowanego;
     }
     
     
@@ -102,7 +107,9 @@ public class Panel_LogowaniaController implements Initializable {
                     if (rs.next()) {
 
                         idStanowiska = rs.getInt("ID_STANOWISKA");
-
+                        
+                        idStanowiskaZalogowanego = idStanowiska;
+                        
                         idZalogowanego = rs.getInt("ID_UZYTKOWNIKA");
 
                         idJegoFirmy = rs.getInt("ID_FIRMY");
@@ -113,11 +120,13 @@ public class Panel_LogowaniaController implements Initializable {
                                 break;
 
                             case 2:
-                                root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
+                                //root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
+                               root = FXMLLoader.load(getClass().getResource("Panel_Wlasciciela.fxml"));
                                 break;
 
                             case 3:
                                 root = FXMLLoader.load(getClass().getResource("Panel_Kierownika.fxml"));
+                                
                                 break;
 
                             case 4:

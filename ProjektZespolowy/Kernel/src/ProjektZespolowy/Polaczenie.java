@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -31,10 +32,23 @@ public class Polaczenie {
             connection.setReadOnly(false);
             System.out.println("Połączyłem się z bazą ");
         } catch (Exception e) {
+            
+            PokazAlert("Informacja","Błąd","Niestety nie udało się połączyć z bazą danych");
+            
             System.err.println("Błąd w połączeniu z bazą: \n" + e.getMessage());
             return null;
         }
         return connection;
+    }
+    
+    public static void PokazAlert(String tytul, String headText, String content) {
+    
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(headText);
+        alert.setContentText(content);
+
+        alert.showAndWait();
     }
     
 }

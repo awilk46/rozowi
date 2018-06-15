@@ -5,6 +5,7 @@
  */
 package ProjektZespolowy;
 
+import static ProjektZespolowy.Panel_LogowaniaController.getStanowiskoZalogowanego;
 import static ProjektZespolowy.Panel_LogowaniaController.getZalogowany;
 import static ProjektZespolowy.Polaczenie.connect;
 import java.net.URL;
@@ -95,7 +96,7 @@ public class Panel_Edycji_GrupController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        WczytajProjekty();
+        
         
         WczytajWolnychLiderow();
         
@@ -103,6 +104,11 @@ public class Panel_Edycji_GrupController implements Initializable {
 
         //WczytajAktualnaGrupe();
         
+        if(getStanowiskoZalogowanego()==3) {
+            WczytajProjekt();
+        } else {
+            WczytajProjekty();
+        }
     }
     
     
@@ -154,6 +160,35 @@ public class Panel_Edycji_GrupController implements Initializable {
                     comboboxWybierzProjekt.getItems().addAll(rs.getString("NAZWA_PROJEKTU"));   
                 }
                 
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
+            }        
+    }
+
+
+            public void WczytajProjekt() {
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY WHERE ID_KIEROWNIKA =" + getZalogowany();
+                
+                ResultSet rs = stat.executeQuery(query);
+                
+                while(rs.next()) {
+                    comboboxWybierzProjekt.getItems().addAll(rs.getString("NAZWA_PROJEKTU"));   
+                }
+                
+                rs.close();
+                System.out.println("Zamkniete przy rs WczytajProjekty()");
                 stat.close();
                 connection.commit();
                 connection.close();

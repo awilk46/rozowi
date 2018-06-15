@@ -6,6 +6,7 @@
 package ProjektZespolowy;
 
 import static ProjektZespolowy.Panel_Lidera_GrupyController.getWybraneZadanie;
+import static ProjektZespolowy.Panel_LogowaniaController.getStanowiskoZalogowanego;
 import static ProjektZespolowy.Panel_LogowaniaController.getZalogowany;
 import static ProjektZespolowy.Polaczenie.connect;
 import java.io.IOException;
@@ -80,7 +81,12 @@ public class Panel_Edycji_ProjektowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        
         WczytanieWolnychKierownikow();
-        WczytajProjekty();
+        
+        if(getStanowiskoZalogowanego()==3) {
+            WczytajProjekt();
+        } else {
+            WczytajProjekty();
+        }
     }
 
     
@@ -146,6 +152,35 @@ public class Panel_Edycji_ProjektowController implements Initializable {
                 System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
             }        
     }
+        
+        
+            public void WczytajProjekt() {
+        try {
+
+                Connection connection = connect();
+                Statement stat = connection.createStatement();
+                
+                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY WHERE ID_KIEROWNIKA =" + getZalogowany();
+                
+                ResultSet rs = stat.executeQuery(query);
+                
+                while(rs.next()) {
+                    comboboxWybierzProjekt.getItems().addAll(rs.getString("NAZWA_PROJEKTU"));   
+                }
+                
+                rs.close();
+                System.out.println("Zamkniete przy rs WczytajProjekty()");
+                stat.close();
+                connection.commit();
+                connection.close();
+
+            } catch (SQLException e) {
+                
+                PokazAlert("Informacja","Błąd","Niestety wystąpił błąd z bazą danych. Nie udało się wczytać projektów");
+                
+                System.err.println(" nie można wykonac tego zapytania WCZYTAJ PROJEKTY: " + e.getMessage());
+            }        
+    }    
     
         
      String nazwaWybranegoKierownika = "";   

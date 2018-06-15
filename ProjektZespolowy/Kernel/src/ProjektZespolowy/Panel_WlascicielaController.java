@@ -55,7 +55,7 @@ import javax.swing.JOptionPane;
  * @author MaRkOs
  */
 
-public class Panel_KierownikaController implements Initializable {
+public class Panel_WlascicielaController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -207,7 +207,7 @@ public class Panel_KierownikaController implements Initializable {
                 Connection connection = connect();
                 Statement stat = connection.createStatement();
                 
-                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY WHERE ID_KIEROWNIKA = " + getZalogowany();
+                query = "SELECT NAZWA_PROJEKTU FROM PROJEKTY";
                 
                 ResultSet rs = stat.executeQuery(query);
                 
